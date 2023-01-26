@@ -1,0 +1,7 @@
+driver: mysql
+config:
+  address: localhost
+  port: 3306
+  databaseName: httpDbLogs
+  user: root
+  password: 67Edh68Tyt69
