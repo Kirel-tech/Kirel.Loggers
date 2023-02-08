@@ -1,0 +1,10 @@
+﻿@page "/log/http/{LogId}"
+
+@using Kirel.Blazor.HttpLogger.Shared.Pages.LogHttp
+
+<LogHttpView LogId=@LogId></LogHttpView>
+
+@code{
+    [Parameter]
+    public string LogId { get; set; }
+}
