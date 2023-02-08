@@ -29,6 +29,20 @@ services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
+//it is necessary for requests from the host locale,
+//to work without a signed certificate, and we allow the use of any HTTP methods and hiders
+services.AddCors(options =>
+{
+    options.AddPolicy("DevCorsPolicy", corsBuilder =>
+    {
+        corsBuilder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithExposedHeaders();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -36,6 +50,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("DevCorsPolicy");
 }
 
 app.UseHttpsRedirection();
