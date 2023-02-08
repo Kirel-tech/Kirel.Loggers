@@ -1,0 +1,102 @@
+﻿@using Kirel.Blazor.MessageLogger.Shared.Models
+@using CurrieTechnologies.Razor.Clipboard
+@using System.Globalization
+@using System.Net.Http.Json
+@using Kirel.Blazor.Shared
+@using Kirel.DTOs
+@inject ClipboardService Clipboard
+@inject IHttpClientFactory HttpClientFactory
+@inject IDialogService DialogService
+
+<MudTable Bordered="@true" Striped="@true" Dense="@true" Loading="@_loading" @ref="_table" ServerData="@(new Func<TableState, Task<TableData<LogMessageDto>>>(ServerReload))" Hover="true">
+    <ToolBarContent>
+
+        <MudTextField T="string" ValueChanged="@(OnSearch)" Placeholder="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Created" T="LogMessageDto">Created</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Message" T="LogMessageDto">Message</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="ExceptionMessage" T="LogMessageDto">Exception message</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="InnerExceptionMessage" T="LogMessageDto">Inner exception message</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="StackTrace" T="LogMessageDto">Stack trace</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Source" T="LogMessageDto">Source</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Level" T="LogMessageDto">Level</MudTableSortLabel></MudTh>
+        <MudTh>Edit</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd Class="min" DataLabel="Id">
+            <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.ContentCopy" Color="Color.Info" 
+                           @onclick="async _ => await Clipboard.WriteTextAsync(context.Id.ToString())"></MudIconButton>
+        </MudTd>
+        <MudTd Class="min" DataLabel="Created">@context.Created.ToString(CultureInfo.CurrentCulture)</MudTd>
+        <MudTd Class="min" DataLabel="Message">@context.Message</MudTd> 
+        <MudTd DataLabel="ExceptionMessage">@context.ExceptionMessage</MudTd>
+        <MudTd DataLabel="InnerExceptionMessage">@context.InnerExceptionMessage</MudTd>
+        <MudTd DataLabel="StackTrace">@context.StackTrace?[..256]</MudTd>
+        <MudTd DataLabel="Source">@context.Source</MudTd>
+        <MudTd DataLabel="Level">@context.Level</MudTd>
+        <MudTd Class="min" Style="white-space: nowrap; width: 1%;" DataLabel="Edit">
+            <MudIconButton Size="Size.Small" Icon="@Icons.Material.TwoTone.Edit" Color="Color.Info" 
+                           OnClick="@(() => ShowLogDialog(context))"></MudIconButton>
+        </MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText>No matching records found</MudText>
+    </NoRecordsContent>
+    <LoadingContent>
+        <MudText>Loading...</MudText>
+    </LoadingContent>
+    <PagerContent>
+        <MudTablePager/>
+    </PagerContent>
+</MudTable>
+
+@code {
+    private readonly string _relativeUrl = "api/log";
+    private string _searchString = "";
+    private MudTable<LogMessageDto> _table;
+    private HttpClient _httpClient;
+    private bool _loading;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _loading = true;
+        _httpClient = HttpClientFactory.CreateClient("MessageLogs");
+        await base.OnInitializedAsync();
+    }
+
+    private async Task<TableData<LogMessageDto>> ServerReload(TableState state)
+    {
+        var uriParamsStr = HttpRequestParamsGenerator.GetListParams(state);
+        if (!string.IsNullOrEmpty(_searchString))
+            uriParamsStr += $"&search={_searchString}";
+        
+        var responseUsers = await _httpClient.GetFromJsonAsync<PaginatedResult<List<LogMessageDto>>>($"{_relativeUrl}?{uriParamsStr}");
+        _loading = false;
+        return new TableData<LogMessageDto>{TotalItems = responseUsers.Pagination.TotalCount, Items = responseUsers.Data};
+    }
+
+    private async Task ReloadServerDataOnDialogClose(IDialogReference dialogReference)
+    {
+        var diagResult = await dialogReference.Result;
+        if (diagResult != null)
+        {
+            await _table.ReloadServerData();
+        }
+    }
+    
+    private async void ShowLogDialog(LogMessageDto dto)
+    {
+        var dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true };
+        var parameters = new DialogParameters {{"Dto", dto}};
+        var dialog = await DialogService.ShowAsync<LogMessageEntityDialog>("Log message", parameters, dialogOptions);
+        await ReloadServerDataOnDialogClose(dialog);
+    }
+    private void OnSearch(string text)
+    {
+        _searchString = text;
+        _table.ReloadServerData();
+    }
+}

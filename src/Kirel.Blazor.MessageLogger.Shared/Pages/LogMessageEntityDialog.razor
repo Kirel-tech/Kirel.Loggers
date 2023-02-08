@@ -1,0 +1,28 @@
+﻿@using Kirel.Blazor.MessageLogger.Shared.Models
+@using Kirel.Blazor.Entities.Models
+
+<EntityDialog TCreateDto="LogMessageDto" TUpdateDto="LogMessageDto" TDto="LogMessageDto"
+              Dto="@Dto" Options="Options">
+    <Content>
+        <MudContainer Class="mx-auto px-4 justify-center my-4 mud-text-align-center">
+            <MudGrid>
+                <MudItem xs="6">
+                    <EntityProperties  Dto="Dto"
+                                       TCreateDto="LogMessageDto" TUpdateDto="LogMessageDto" TDto="LogMessageDto" 
+                                       Options="@Options"/>
+                </MudItem>
+                <MudItem xs="6">
+                    @{
+                        var dtoStackTrace = new EntityDtoProperty<string>("StackTrace", null, null, Dto);
+                        var stackTraceReadonly = Options.Action == EntityAction.Read;
+                    }
+                    <MudTextField Readonly="@stackTraceReadonly" T="string" Label="Stack trace" Variant="Variant.Text" Text="@dtoStackTrace.Property" Lines="15"/>
+                </MudItem>
+            </MudGrid>
+        </MudContainer>
+    </Content>
+</EntityDialog>
+
+@code{
+    
+}
