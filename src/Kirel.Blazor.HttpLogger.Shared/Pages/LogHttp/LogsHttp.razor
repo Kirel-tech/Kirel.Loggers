@@ -1,0 +1,127 @@
+﻿@using Kirel.Blazor.HttpLogger.Shared.Models
+@using CurrieTechnologies.Razor.Clipboard
+@using System.Globalization
+@using System.Net.Http.Json
+@using Kirel.Blazor.Shared
+@using Kirel.DTOs
+@using Microsoft.JSInterop
+@inject ClipboardService Clipboard
+@inject IHttpClientFactory HttpClientFactory
+@inject IDialogService DialogService
+@inject NavigationManager _nav
+
+<style>
+    .mud-table-dense * .mud-table-row .mud-table-cell {
+        padding: 0px 10px 0px 10px;
+        padding-inline-start: 10px;
+        padding-inline-end: 10px;
+    }
+    .mud-chip .mud-chip-icon {
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        color: inherit;
+    }
+    td.min {
+        width: 1%;
+        white-space: nowrap;
+    }
+</style>
+
+<MudTable Bordered="@true" Striped="@true" Dense="@true" Loading="@_loading" @ref="_table" ServerData="@(new Func<TableState, Task<TableData<LogHttpDto>>>(ServerReload))" Hover="true">
+    <ToolBarContent>
+
+        <MudTextField T="string" ValueChanged="@(OnSearch)" Placeholder="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Created" T="LogHttpDto">Created</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Username" T="LogHttpDto">Username</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Source" T="LogHttpDto">Source</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Host" T="LogHttpDto">Host</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Path" T="LogHttpDto">Path</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Method" T="LogHttpDto">Method</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Protocol" T="LogHttpDto">Protocol</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="ClientIp" T="LogHttpDto">Ip</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="QueryString" T="LogHttpDto">Query string</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="ResponseCode" T="LogHttpDto">Response code</MudTableSortLabel></MudTh>
+        <MudTh>Detail</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd Class="min" DataLabel="Id">
+            <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.ContentCopy" Color="Color.Info" 
+                           @onclick="async _ => await Clipboard.WriteTextAsync(context.Id.ToString())"></MudIconButton>
+        </MudTd>
+        <MudTd Class="min" DataLabel="Created">@context.Created.ToString(CultureInfo.CurrentCulture)</MudTd>
+        <MudTd DataLabel="Username">@context.Username</MudTd> 
+        <MudTd DataLabel="Source">@context.Source</MudTd> 
+        <MudTd DataLabel="Host">@context.Host</MudTd> 
+        <MudTd DataLabel="Path">@context.Path</MudTd> 
+        <MudTd Class="min" DataLabel="Method">@context.Method</MudTd> 
+        <MudTd DataLabel="Protocol">@context.Protocol</MudTd> 
+        <MudTd Class="min" DataLabel="ClientIp">@context.ClientIp?.ToString(CultureInfo.CurrentCulture)</MudTd> 
+        <MudTd DataLabel="QueryString">@context.QueryString</MudTd> 
+        <MudTd Class="min" DataLabel="ResponseCode">@context.ResponseCode</MudTd> 
+        <MudTd Class="min" Style="white-space: nowrap; width: 1%;" DataLabel="Edit">
+            <MudIconButton Size="Size.Small" Icon="@Icons.Material.TwoTone.OpenInBrowser" Color="Color.Info" 
+                           OnClick="@(() => ShowLogPage(context))"></MudIconButton>
+        </MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText>No matching records found</MudText>
+    </NoRecordsContent>
+    <LoadingContent>
+        <MudText>Loading...</MudText>
+    </LoadingContent>
+    <PagerContent>
+        <MudTablePager/>
+    </PagerContent>
+</MudTable>
+
+@code {
+    private readonly string _relativeUrl = "api/httplog";
+    private string _searchString = "";
+    private MudTable<LogHttpDto> _table;
+    private HttpClient _httpClient;
+    private bool _loading;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _loading = true;
+        _httpClient = HttpClientFactory.CreateClient("HttpLogs");
+        await base.OnInitializedAsync();
+    }
+
+    private async Task<TableData<LogHttpDto>> ServerReload(TableState state)
+    {
+        var uriParamsStr = HttpRequestParamsGenerator.GetListParams(state);
+        if (!string.IsNullOrEmpty(_searchString))
+            uriParamsStr += $"&search={_searchString}";
+        
+        var responseUsers = await _httpClient.GetFromJsonAsync<PaginatedResult<List<LogHttpDto>>>($"{_relativeUrl}?{uriParamsStr}");
+        _loading = false;
+        return new TableData<LogHttpDto>{TotalItems = responseUsers.Pagination.TotalCount, Items = responseUsers.Data};
+    }
+
+    private async Task ReloadServerDataOnDialogClose(IDialogReference dialogReference)
+    {
+        var diagResult = await dialogReference.Result;
+        if (diagResult != null)
+        {
+            await _table.ReloadServerData();
+        }
+    }
+
+    private void ShowLogPage(LogHttpDto dto)
+    {
+        _nav.NavigateTo($"/log/http/{dto.Id}");
+    }
+
+    private void OnSearch(string text)
+    {
+        _searchString = text;
+        _table.ReloadServerData();
+    }
+}

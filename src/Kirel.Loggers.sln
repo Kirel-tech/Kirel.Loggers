@@ -18,6 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Blazor.MessageLogger"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Blazor.MessageLogger.Shared", "Kirel.Blazor.MessageLogger.Shared\Kirel.Blazor.MessageLogger.Shared.csproj", "{9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Blazor.HttpLogger", "Kirel.Blazor.HttpLogger\Kirel.Blazor.HttpLogger.csproj", "{BCD4726C-8BDF-48F8-8525-078EC71583DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Blazor.HttpLogger.Shared", "Kirel.Blazor.HttpLogger.Shared\Kirel.Blazor.HttpLogger.Shared.csproj", "{701A3373-7D42-4EAF-B90D-156A6C61981D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +64,13 @@ Global
         {9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}.Debug|Any CPU.Build.0 = Debug|Any CPU
         {9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}.Release|Any CPU.ActiveCfg = Release|Any CPU
         {9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCD4726C-8BDF-48F8-8525-078EC71583DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD4726C-8BDF-48F8-8525-078EC71583DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD4726C-8BDF-48F8-8525-078EC71583DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD4726C-8BDF-48F8-8525-078EC71583DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{701A3373-7D42-4EAF-B90D-156A6C61981D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{701A3373-7D42-4EAF-B90D-156A6C61981D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{701A3373-7D42-4EAF-B90D-156A6C61981D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{701A3373-7D42-4EAF-B90D-156A6C61981D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

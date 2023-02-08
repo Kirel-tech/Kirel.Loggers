@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <SupportedPlatform Include="browser" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CurrieTechnologies.Razor.Clipboard" Version="1.6.0" />
+        <PackageReference Include="Kirel.Blazor.Entities" Version="0.0.9" />
+        <PackageReference Include="Kirel.Blazor.Shared" Version="0.0.4" />
+        <PackageReference Include="Kirel.DTOs" Version="0.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.13" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+        <PackageReference Include="MudBlazor" Version="6.1.8" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    </ItemGroup>
+
+</Project>

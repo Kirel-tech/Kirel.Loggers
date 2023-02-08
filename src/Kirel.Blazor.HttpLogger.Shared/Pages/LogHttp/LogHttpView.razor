@@ -1,0 +1,175 @@
+﻿@using Kirel.Blazor.Entities.Models
+@using Kirel.Blazor.HttpLogger.Listeners
+@using Newtonsoft.Json.Linq
+@using System.Text.RegularExpressions
+@using Kirel.Blazor.HttpLogger.Shared.Models
+@using Microsoft.JSInterop
+@using System.Net.Http.Json
+@using Formatting = Newtonsoft.Json.Formatting
+@inject IHttpClientFactory HttpClientFactory
+@inject NotFoundListener NotFoundListener;
+@inject IJSRuntime _jsRuntime
+
+<EntityPage TCreateDto="LogHttpDto" TUpdateDto="LogHttpDto" TDto="LogHttpDto"
+            Dto="@Dto" Options="Options">
+    <Content>
+        <MudContainer MaxWidth="MaxWidth.False" Class="px-4 m-0 mud-text-align-center">
+                <MudGrid>
+                    <MudItem xs="4">
+                        <MudPaper Outlined="true" Class="pa-4 ma-2">
+                        <h3>Request</h3>
+                        <EntityProperties Dto="Dto"
+                                      TCreateDto="LogHttpDto" TUpdateDto="LogHttpDto" TDto="LogHttpDto"
+                                      Options="@Options"/>
+                        @PropertiesAdditionalContent
+                        </MudPaper>
+                    </MudItem>
+                    <MudItem xs="4">
+                        <MudPaper Outlined="true" Class="pa-4 ma-2">
+                        <h3>Request Headers</h3>
+                        @{
+                            var dtoRequestHeaders = new EntityDtoProperty<string>("RequestHeaders", null, null, Dto);
+
+                            var headers = new Dictionary<string, string>();
+                            if (dtoRequestHeaders.Property != null)
+                            {
+                                headers = ParseHeaders(dtoRequestHeaders.Property);
+                            }
+                        }
+                        @foreach (var header in headers)
+                        {
+                            <MudField T="string" Label="@header.Key" Variant="Variant.Text">@header.Value</MudField>
+                        }
+                        </MudPaper >
+                    </MudItem>
+                    <MudItem xs="4">
+                        <MudPaper Outlined="true" Class="pa-4 ma-2">
+                            <h3>Response Headers</h3>
+                            @{
+                                var dtoResponseHeaders = new EntityDtoProperty<string>("ResponseHeaders", null, null, Dto);
+
+                                var headers = new Dictionary<string, string>();
+                                if (dtoResponseHeaders.Property != null)
+                                {
+                                    headers = ParseHeaders(dtoResponseHeaders.Property);
+                                }
+                            }
+                            @foreach (var header in headers)
+                            {
+                                <MudField T="string" Label="@header.Key" Variant="Variant.Text">@header.Value</MudField>
+                            }
+                        </MudPaper>
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudPaper Outlined="true" Class="pa-4 ma-2">
+                            <h3>Request Body</h3>
+                            @{
+                                var dtoRequestBody = new EntityDtoProperty<string>("RequestBody", null, null, Dto);
+                            }
+                            <pre><code class="language-json">@dtoRequestBody.Property</code></pre>
+                        </MudPaper>
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudPaper Outlined="true" Class="pa-4 ma-2">
+                            <h3>Response Body</h3>
+                            @{
+                                var dtoResponseBody = new EntityDtoProperty<string>("ResponseBody", null, null, Dto);
+                            }
+                            <pre><code class="language-json">@dtoResponseBody.Property</code></pre>
+                        </MudPaper>
+                    </MudItem>
+                </MudGrid>
+                @* @AdditionalContent *@
+            </MudContainer>
+    </Content>
+</EntityPage>
+
+@code {
+    private readonly string _relativeUrl = "api/httplog";
+
+    [Parameter]
+    public string LogId { get; set; }
+
+    [Parameter]
+    public LogHttpDto? Dto { get; set; } = new();
+
+    /// <summary>
+    /// Options for control dialog and fields entity settings
+    /// </summary>
+    [Parameter]
+    public EntityOptions? Options { get; set; }
+
+    /// <summary>
+    /// Additional dialog content
+    /// </summary>
+    [Parameter]
+    public RenderFragment? AdditionalContent { get; set; }
+
+    /// <summary>
+    /// Dialog properties section additional content
+    /// </summary>
+    [Parameter]
+    public RenderFragment? PropertiesAdditionalContent { get; set; }
+
+    private HttpClient _httpClient = null!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _jsRuntime.InvokeVoidAsync("Prism.highlightAll");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var action = EntityAction.Read;
+        Options ??= new EntityOptions()
+        {
+            Action = action,
+        };
+        Options.IgnoredProperties.Add("RequestBody");
+        Options.IgnoredProperties.Add("RequestHeaders");
+        Options.IgnoredProperties.Add("ResponseBody");
+        Options.IgnoredProperties.Add("ResponseHeaders");
+
+        _httpClient = HttpClientFactory.CreateClient("HttpLogs");
+        if (Guid.TryParse(LogId, out _))
+        {
+            var response = await _httpClient.GetAsync($"{_relativeUrl}/{LogId}");
+            if (!response.IsSuccessStatusCode)
+            {
+                NotFoundListener.NotifyNotFound();
+                return;
+            }
+            Dto = await response.Content.ReadFromJsonAsync<LogHttpDto>();
+            Dto!.ResponseBody = Dto!.ResponseBody != null ? JToken.Parse(Dto!.ResponseBody!).ToString(Formatting.Indented) : null;
+        }
+        else
+        {
+            NotFoundListener.NotifyNotFound();
+            return;
+        }
+
+        await base.OnInitializedAsync();
+    }
+
+    private Dictionary<string, string> ParseHeaders(string strHeaders)
+    {
+        var parsedHeaders = new Dictionary<string, string>();
+
+        var regex = new Regex("{([^}]*)}");
+        var matches = regex.Matches(strHeaders);
+        foreach (var match in matches.AsQueryable())
+        {
+            var group = match.Groups[1];
+            var groupContent = group.ToString();
+            var kvPair = groupContent.Split(":", StringSplitOptions.RemoveEmptyEntries);
+            parsedHeaders[kvPair[0]] = kvPair[1];
+            // If value had ':', we should restore it to a single string
+            foreach (var value in kvPair.Skip(2))
+            {
+                parsedHeaders[kvPair[0]] += ":" + value;
+            }
+        }
+        return parsedHeaders;
+    }
+
+}
