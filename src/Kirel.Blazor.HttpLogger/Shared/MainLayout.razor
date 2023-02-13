@@ -1,40 +1,61 @@
 ﻿@using Kirel.Blazor.HttpLogger.Listeners
+@using Kirel.Identity.Client.Interfaces
 @inherits LayoutComponentBase
 @inject NotFoundListener NotFoundListener;
+@inject IClientAuthenticationService AuthenticationService
 
 <MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @if (notFound)
-            {
-                <h1>Could not find the content you are looking for</h1>
-            }else
-            {
-                @Body
-            }
-        </article>
-    </main>
-</div>
+<AuthorizeView>
+    <Authorized>
+        <MudLayout>
+            <MudAppBar Elevation="1">
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                <MudText Typo="Typo.h5" Class="ml-3">Kirel Identity GUI</MudText>
+                <MudSpacer />
+                <MudIconButton Icon="@Icons.Material.Rounded.Logout" OnClick="Logout" Color="Color.Inherit" Edge="Edge.End" />
+            </MudAppBar>
+            <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+                <NavMenu/>
+            </MudDrawer>
+            <MudMainContent>
+                @if (notFound)
+                {
+                    <h1>Could not find the content you are looking for</h1>
+                }else
+                {
+                    @Body
+                }
+            </MudMainContent>
+        </MudLayout>
+    </Authorized>
+    <NotAuthorized>
+        <HttpLogin/>
+    </NotAuthorized>
+</AuthorizeView>
 
 @code{
+    
     private bool notFound;
 
     protected override void OnInitialized() => NotFoundListener.OnNotFound += SetNotFound;
 
+    private async Task Logout()
+    {
+        await AuthenticationService.Logout();
+    }
+
+    bool _drawerOpen = true;
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+    
     void SetNotFound()
     {
         notFound = true;
         StateHasChanged();
     }
-}
+} 
