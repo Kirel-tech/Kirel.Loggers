@@ -1,21 +1,44 @@
-﻿@inherits LayoutComponentBase
+﻿@using Kirel.Identity.Client.Interfaces
+@inherits LayoutComponentBase
+@inject IClientAuthenticationService AuthenticationService
 
 <MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
+<AuthorizeView>
+    <Authorized>
+        <MudLayout>
+            <MudAppBar Elevation="1">
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                <MudText Typo="Typo.h5" Class="ml-3">Kirel Identity GUI</MudText>
+                <MudSpacer />
+                <MudIconButton Icon="@Icons.Material.Rounded.Logout" OnClick="Logout" Color="Color.Inherit" Edge="Edge.End" />
+            </MudAppBar>
+            <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+                <NavMenu/>
+            </MudDrawer>
+            <MudMainContent>
+                @Body
+            </MudMainContent>
+        </MudLayout>
+    </Authorized>
+    <NotAuthorized>
+        <LoggerLogin/>
+    </NotAuthorized>
+</AuthorizeView>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+@code{
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+    private async Task Logout()
+    {
+        await AuthenticationService.Logout();
+    }
+
+    bool _drawerOpen = true;
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+} 
