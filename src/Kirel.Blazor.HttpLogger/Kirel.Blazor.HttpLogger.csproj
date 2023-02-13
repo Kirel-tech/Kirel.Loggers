@@ -9,6 +9,9 @@
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
         <PackageReference Include="CurrieTechnologies.Razor.Clipboard" Version="1.6.0" />
+        <PackageReference Include="Kirel.Identity.Client.Blazor" Version="1.0.1-main-34598f31" />
+        <PackageReference Include="Kirel.Identity.Client.Blazor.Pages" Version="1.0.2-main-18-35c23f4c" />
+        <PackageReference Include="Kirel.Identity.Client.Jwt" Version="1.0.1-main-34598f31" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.12" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.12" PrivateAssets="all" />
         <PackageReference Include="MudBlazor" Version="6.1.8" />
@@ -17,6 +20,12 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Kirel.Blazor.HttpLogger.Shared\Kirel.Blazor.HttpLogger.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="wwwroot\appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
