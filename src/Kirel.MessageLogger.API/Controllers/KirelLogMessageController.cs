@@ -1,6 +1,7 @@
 ﻿using Kirel.DTO;
 using Kirel.MessageLogger.API.Services;
 using Kirel.MessageLogger.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SortDirection = Kirel.Repositories.Sorts.SortDirection;
 
@@ -10,6 +11,8 @@ namespace Kirel.MessageLogger.API.Controllers;
 /// Controller for working with the logs
 /// </summary>
 [Route("api/log/")]
+[ApiController]
+[Authorize]
 public class KirelLogMessageController : Controller
 {
     /// <summary>
