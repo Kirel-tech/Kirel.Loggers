@@ -10,20 +10,13 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = new ConfigurationManager().AddJsonFile("appsettings.json").Build();
 var services = builder.Services;
-var ymlDeserializer = new DeserializerBuilder()
-    .WithNamingConvention(CamelCaseNamingConvention.Instance)
-    .Build();
 
 var authOptions = configuration.GetSection("Auth").Get<KirelAuthOptions>();
-
-var ymlString = File.ReadAllText("DbConfig.yaml");
-var dbConfig = ymlDeserializer.Deserialize<DbConfig>(ymlString);
+var dbConfig = configuration.GetSection("DbConfig").Get<DbConfig>();
 
 // Add services to the container.
 services.AddScoped<KirelGenericEntityFrameworkRepository<Guid, KirelLogMessage, KirelLogMessageContext>>();
