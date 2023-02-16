@@ -11,7 +11,7 @@ namespace Kirel.HttpLogger.API.Controllers;
 /// <summary>
 /// Controller for working with the http logs
 /// </summary>
-[Route("api/httplog/")]
+[Route("api/log/http/")]
 [ApiController]
 [Authorize]
 public class KirelLogHttpController : Controller

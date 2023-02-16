@@ -10,7 +10,7 @@ namespace Kirel.MessageLogger.API.Controllers;
 /// <summary>
 /// Controller for working with the logs
 /// </summary>
-[Route("api/log/")]
+[Route("api/log/message")]
 [ApiController]
 [Authorize]
 public class KirelLogMessageController : Controller
