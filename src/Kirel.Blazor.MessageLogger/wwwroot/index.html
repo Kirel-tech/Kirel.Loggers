@@ -14,7 +14,7 @@
             var skipIndex = 99;
             path.forEach(function (elem, index){
                 if (index === 0) return;
-                if (elem === "logs") skipIndex = index;
+                if (elem === "log") skipIndex = index;
                 if (index >= skipIndex || elem === "") return;
                 baseUrl.push(elem);
             })
