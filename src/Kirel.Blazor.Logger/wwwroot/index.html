@@ -5,7 +5,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Kirel.Blazor.Logger</title>
-    <base href="/" />
+    <base />
+    <script>
+        var path = window.location.pathname.split('/');
+        var base = document.getElementsByTagName('base')[0];
+        if (path.length > 2) {
+            var baseUrl = [];
+            var skipIndex = 99;
+            path.forEach(function (elem, index){
+                if (index === 0) return;
+                if (elem === "logs") skipIndex = index;
+                if (index >= skipIndex || elem === "") return;
+                baseUrl.push(elem);
+            })
+            base.setAttribute('href', '/' + baseUrl.join("/") + '/');
+        } else if (path[path.length - 1].length != 0) {
+            window.location.replace(window.location.origin + window.location.pathname + '/' + window.location.search);
+        }
+    </script>
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
     <link href="Kirel.Blazor.Logger.styles.css" rel="stylesheet" />
@@ -15,17 +32,17 @@
 </head>
 
 <body>
-    <div id="app">Loading...</div>
+<div id="app">Loading...</div>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-    <script src="_framework/blazor.webassembly.js"></script>
-    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
-    <script src="_content/CurrieTechnologies.Razor.Clipboard/clipboard.min.js"></script>
-    <script src="json/prism/prism.js"></script>
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+<script src="_framework/blazor.webassembly.js"></script>
+<script src="_content/MudBlazor/MudBlazor.min.js"></script>
+<script src="_content/CurrieTechnologies.Razor.Clipboard/clipboard.min.js"></script>
+<script src="json/prism/prism.js"></script>
 </body>
 
 </html>
