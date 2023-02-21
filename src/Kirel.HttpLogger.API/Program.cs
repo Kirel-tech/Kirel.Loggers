@@ -12,7 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var configuration = new ConfigurationManager().AddJsonFile("appsettings.json").Build(); 
+var configuration = builder.Configuration; 
 var services = builder.Services;
 
 var authOptions = configuration.GetSection("Auth").Get<KirelAuthOptions>();
