@@ -18,11 +18,30 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-var identityUriStr = builder.Configuration["Services:Identity"];
-var httpLogsStrUri = builder.Configuration["Services:HttpLogsApi"];
-var logsMessageStrUri = builder.Configuration["Services:MessageLogsApi"];
+var defaultBaseUri = new Uri(builder.HostEnvironment.BaseAddress);
+var hostOnlyBaseStr =  $"{defaultBaseUri.Scheme}://{defaultBaseUri.Host}:{defaultBaseUri.Port}/";
 
-var httpLogsUri = new Uri(httpLogsStrUri);
+var identityUriStr = builder.Configuration["Services:Identity"];
+var httpLogsUriStr = builder.Configuration["Services:HttpLogsApi"];
+var logsMessageStrUri = builder.Configuration["Services:MessageLogsApi"];
+if (string.IsNullOrWhiteSpace(httpLogsUriStr))
+{
+    Console.WriteLine("Http logs api address is not set in appsettings.json");
+    httpLogsUriStr = hostOnlyBaseStr;
+}
+if (string.IsNullOrWhiteSpace(identityUriStr))
+{
+    Console.WriteLine("Identity address is not set in appsettings.json");
+    identityUriStr = hostOnlyBaseStr;
+}
+
+if (string.IsNullOrWhiteSpace(logsMessageStrUri))
+{
+    Console.WriteLine("Message logs api address is not set in appsettings.json");
+    logsMessageStrUri = hostOnlyBaseStr;
+}
+
+var httpLogsUri = new Uri(httpLogsUriStr);
 var logsMessageUri = new Uri(logsMessageStrUri);
 
 builder.Services.AddMudServices();

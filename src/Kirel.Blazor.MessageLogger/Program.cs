@@ -17,8 +17,22 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+var defaultBaseUri = new Uri(builder.HostEnvironment.BaseAddress);
+var hostOnlyBaseStr =  $"{defaultBaseUri.Scheme}://{defaultBaseUri.Host}:{defaultBaseUri.Port}/";
+
 var identityUriStr = builder.Configuration["Services:Identity"];
 var logsMessageStrUri = builder.Configuration["Services:MessageLogsApi"];
+
+if (string.IsNullOrWhiteSpace(identityUriStr))
+{
+    Console.WriteLine("Identity address is not set in appsettings.json");
+    identityUriStr = hostOnlyBaseStr;
+}
+if (string.IsNullOrWhiteSpace(logsMessageStrUri))
+{
+    Console.WriteLine("Message logs api address is not set in appsettings.json");
+    logsMessageStrUri = hostOnlyBaseStr;
+}
 var logsMessageUri = new Uri(logsMessageStrUri);
 
 // Add http client JWT Authorization handler to DI
