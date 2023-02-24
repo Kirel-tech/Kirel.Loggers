@@ -10,34 +10,28 @@ namespace Kirel.Logger.Shared.Handlers;
 public class ApiKeyAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {
     private IConfiguration _configuration;
-    public ApiKeyAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, IConfiguration configuration) : base(options, logger, encoder, clock)
+
+    public ApiKeyAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger,
+        UrlEncoder encoder, ISystemClock clock, IConfiguration configuration) : base(options, logger, encoder, clock)
     {
         _configuration = configuration;
     }
 
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-        var apiKeyHeader = "Authorization";
+        var apiKeyHeader = "X-API-KEY";
         if (!Request.Headers.ContainsKey(apiKeyHeader))
             return await Task.FromResult(AuthenticateResult.Fail("Unauthorized"));
-        string authorizationHeader = Request.Headers[apiKeyHeader];
-        if (string.IsNullOrEmpty(authorizationHeader))
-        {
-            return await Task.FromResult(AuthenticateResult.NoResult());
-        }
+        var apiKey = Request.Headers[apiKeyHeader];
 
-        var apikeyArr = authorizationHeader.Split(" ");
-        if(apikeyArr.Length < 2) return await Task.FromResult(AuthenticateResult.NoResult());
-        var apikey = apikeyArr[1];
-        
-        if (string.IsNullOrEmpty(apikey))
+        if (string.IsNullOrEmpty(apiKey))
         {
             return await Task.FromResult(AuthenticateResult.Fail("Unauthorized"));
         }
- 
+
         try
         {
-            return ValidateApiKey(apikey);
+            return ValidateApiKey(apiKey);
         }
         catch (Exception ex)
         {
@@ -45,30 +39,30 @@ public class ApiKeyAuthenticationHandler : AuthenticationHandler<AuthenticationS
         }
     }
 
-    private AuthenticateResult ValidateApiKey(string transferedApiKey)
+    private AuthenticateResult ValidateApiKey(string apiKey)
     {
-        var apiKeys = _configuration.GetSection("ApiKeys").GetChildren().ToArray().Select(c => c.Value).ToArray();
-        
-        if (!apiKeys.Contains(transferedApiKey))
+        var apiKeys = _configuration.GetSection("APIKeys").GetChildren().ToArray().Select(c => c.Value).ToArray();
+
+        if (!apiKeys.Contains(apiKey))
         {
-            return AuthenticateResult.Fail("Unauthorized"); 
+            return AuthenticateResult.Fail("Unauthorized");
         }
+
         var identity = GetClaimsIdentity();
-        var principal = new System.Security.Principal.GenericPrincipal(identity, new []{"LoggerWriter"});
+        var principal = new System.Security.Principal.GenericPrincipal(identity, new[] { "Microservice" });
         return AuthenticateResult.Success(new AuthenticationTicket(principal, "APIKey"));
     }
-    
+
     private ClaimsIdentity GetClaimsIdentity()
     {
         var claims = new List<Claim>
         {
-            new (ClaimsIdentity.DefaultNameClaimType, "LoggerWriter"),
+            new(ClaimsIdentity.DefaultNameClaimType, "Microservice"),
         };
-        
+
         var claimsIdentity =
             new ClaimsIdentity(claims, "APIKey", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
         return claimsIdentity;
     }
-
 }
