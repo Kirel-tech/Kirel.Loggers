@@ -7,20 +7,25 @@
     <title>Kirel.Blazor.Logger</title>
     <base />
     <script>
-        var path = window.location.pathname.split('/');
-        var base = document.getElementsByTagName('base')[0];
-        if (path.length > 2) {
-            var baseUrl = [];
-            var skipIndex = 99;
-            path.forEach(function (elem, index){
-                if (index === 0) return;
-                if (elem === "log") skipIndex = index;
-                if (index >= skipIndex || elem === "") return;
-                baseUrl.push(elem);
-            })
-            base.setAttribute('href', '/' + baseUrl.join("/") + '/');
-        } else{
-            base.setAttribute('href', '/');
+        const path = window.location.pathname.split('/');
+        const baseTag = document.getElementsByTagName('base')[0];
+        // Names that can't be part of the base path
+        const pathExclude = ["log", "session"];
+
+        var baseUrlArr = [];
+        var skipIndex = 99;
+        path.forEach(function (elem, index){
+            if (index === 0) return;
+            if (pathExclude.includes(elem)) skipIndex = index;
+            if (index >= skipIndex || elem === "") return;
+            baseUrlArr.push(elem);
+        })
+
+        var basePath = baseUrlArr.join("/");
+        if (basePath.length > 0){
+            baseTag.setAttribute('href', '/' + basePath + '/');
+        } else {
+            baseTag.setAttribute('href', '/');
         }
     </script>
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
