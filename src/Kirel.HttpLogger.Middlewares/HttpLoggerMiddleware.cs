@@ -22,10 +22,10 @@ public class KirelHttpLoggerMiddleware
     /// <param name="next">A function that can process an HTTP request</param>
     /// <param name="httpClient">Http client class for sending http requests</param>
     /// <param name="loggerOpt">Kirel logger options</param>
-    public KirelHttpLoggerMiddleware(RequestDelegate next, HttpClient httpClient, IOptions<KirelHttpLoggerOptions> loggerOpt)
+    public KirelHttpLoggerMiddleware(RequestDelegate next, IHttpClientFactory httpClientFactory, IOptions<KirelHttpLoggerOptions> loggerOpt)
     {
         _next = next;
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient("KirelHttpLogger");
         _loggerOpt = loggerOpt;
     }
     /// <summary>
