@@ -22,4 +22,8 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Kirel.Logger.HTTP.DTOs\Kirel.Logger.HTTP.DTOs.csproj" />
+    </ItemGroup>
+
 </Project>
