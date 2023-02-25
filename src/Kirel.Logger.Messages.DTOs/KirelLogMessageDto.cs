@@ -1,10 +1,18 @@
-﻿namespace Kirel.MessageLogger.DTOs;
+﻿namespace Kirel.Logger.Messages.DTOs;
 
 /// <summary>
-/// Data transfer object for create log
+/// Data transfer object for send log
 /// </summary>
-public class KirelLogMessageCreateDto
+public class KirelLogMessageDto
 {
+    /// <summary>
+    /// Log unique identifier
+    /// </summary>
+    public Guid Id { get; set; }      
+    /// <summary>
+    /// Log create date and time
+    /// </summary>
+    public DateTime Created { get; set; }
     /// <summary>
     /// Log message
     /// </summary>

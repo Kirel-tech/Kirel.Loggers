@@ -2,7 +2,7 @@
 using Kirel.DTO;
 using Kirel.MessageLogger.API.Context;
 using Kirel.MessageLogger.API.Models;
-using Kirel.MessageLogger.DTOs;
+using Kirel.Logger.Messages.DTOs;
 using Kirel.Repositories.Infrastructure.Generics;
 using SortDirection = Kirel.Repositories.Sorts.SortDirection;
 
