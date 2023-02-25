@@ -1,8 +1,8 @@
-﻿using Kirel.MessageLogger.API.Models;
+﻿using Kirel.Logger.Messages.API.Models;
 using Kirel.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kirel.MessageLogger.API.Context;
+namespace Kirel.Logger.Messages.API.Context;
 
 /// <summary>
 /// Derived class from <see cref="DbContext"/> for working with logs

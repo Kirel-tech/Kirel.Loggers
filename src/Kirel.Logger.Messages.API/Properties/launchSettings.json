@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Kirel.DbLoggerLogAPI": {
+    "Kirel.Logger.Messages.API": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

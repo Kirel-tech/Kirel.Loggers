@@ -1,8 +1,8 @@
 ﻿using Kirel.Logger.Shared.Models;
-using Kirel.MessageLogger.API.Models;
+using Kirel.Logger.Messages.API.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kirel.MessageLogger.API.Context;
+namespace Kirel.Logger.Messages.API.Context;
 
 /// <summary>
 /// Extension for service collection that adds data db context depends on chosen db driver in config file
