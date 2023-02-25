@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using Kirel.MessageLogger.Interfaces;
-using Kirel.MessageLogger.DTOs;
+using Kirel.Logger.Messages.DTOs;
 using Kirel.MessageLogger.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

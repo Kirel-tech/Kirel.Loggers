@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Kirel.MessageLogger.API.Models;
-using Kirel.MessageLogger.DTOs;
+using Kirel.Logger.Messages.DTOs;
 
 namespace Kirel.MessageLogger.API.Mappings;
 
