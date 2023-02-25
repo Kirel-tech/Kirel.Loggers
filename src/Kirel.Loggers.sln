@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.Messages.Blazo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Blazor.HttpLogger", "Kirel.Blazor.HttpLogger\Kirel.Blazor.HttpLogger.csproj", "{BCD4726C-8BDF-48F8-8525-078EC71583DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Blazor.HttpLogger.Shared", "Kirel.Blazor.HttpLogger.Shared\Kirel.Blazor.HttpLogger.Shared.csproj", "{701A3373-7D42-4EAF-B90D-156A6C61981D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.HTTP.Blazor.Pages", "Kirel.Logger.HTTP.Blazor.Pages\Kirel.Logger.HTTP.Blazor.Pages.csproj", "{701A3373-7D42-4EAF-B90D-156A6C61981D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Blazor.Logger", "Kirel.Blazor.Logger\Kirel.Blazor.Logger.csproj", "{9137EFDB-ADED-4DF6-B694-EFD8CE560DFB}"
 EndProject
