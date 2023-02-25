@@ -3,11 +3,11 @@ using Kirel.Blazor.Entities.Models;
 using Kirel.Logger.Messages.DTOs;
 using Microsoft.AspNetCore.Components;
 
-namespace Kirel.Blazor.MessageLogger.Shared;
+namespace Kirel.Logger.Messages.Blazor.Pages;
 
 public partial class LogMessageEntityDialog
 {
-        /// <summary>
+    /// <summary>
     /// Microsoft http client factory
     /// </summary>
     [Inject]
