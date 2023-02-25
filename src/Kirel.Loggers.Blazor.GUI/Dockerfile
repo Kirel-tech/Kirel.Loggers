@@ -2,13 +2,13 @@
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY Kirel.Blazor.Logger/Kirel.Blazor.Logger.csproj .
-RUN dotnet restore Kirel.Blazor.Logger.csproj
+COPY Kirel.Loggers.Blazor.GUI/Kirel.Loggers.Blazor.GUI.csproj .
+RUN dotnet restore Kirel.Loggers.Blazor.GUI.csproj
 COPY . .
-RUN dotnet build "Kirel.Blazor.Logger/Kirel.Blazor.Logger.csproj" -c Release -o /app/build
+RUN dotnet build "Kirel.Loggers.Blazor.GUI/Kirel.Loggers.Blazor.GUI.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Kirel.Blazor.Logger/Kirel.Blazor.Logger.csproj" -c Release -o /app/publish
+RUN dotnet publish "Kirel.Loggers.Blazor.GUI/Kirel.Loggers.Blazor.GUI.csproj" -c Release -o /app/publish
 
 WORKDIR /app/publish
 
