@@ -11,9 +11,8 @@ FROM build AS publish
 RUN dotnet publish "Kirel.Blazor.Logger/Kirel.Blazor.Logger.csproj" -c Release -o /app/publish
 
 WORKDIR /app/publish
-RUN ls -l
 
 FROM nginx:alpine AS final
 WORKDIR /usr/share/nginx/html
 COPY --from=publish /app/publish/wwwroot .
-COPY blazorLoggerNginx.conf /etc/nginx/nginx.conf
+COPY docker/gui.nginx.conf /etc/nginx/nginx.conf
