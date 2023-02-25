@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Loggers.Blazor.GUI", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{60997860-A35D-4006-906D-EE58CA82BE72}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{C79A47EC-D9CC-4BD1-A11C-33853F4E3521}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GUI", "GUI", "{C79A47EC-D9CC-4BD1-A11C-33853F4E3521}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
