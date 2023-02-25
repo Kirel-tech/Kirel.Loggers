@@ -3,14 +3,14 @@ using Blazored.LocalStorage;
 using CurrieTechnologies.Razor.Clipboard;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Kirel.Blazor.HttpLogger;
-using Kirel.Blazor.HttpLogger.Listeners;
+using Kirel.Logger.HTTP.Blazor.GUI;
 using Kirel.Identity.Client.Blazor.Services;
 using Kirel.Identity.Client.Interfaces;
 using Kirel.Identity.Client.Jwt.Handlers;
 using Kirel.Identity.Client.Jwt.Options;
 using Kirel.Identity.Client.Jwt.Providers;
 using Kirel.Identity.Client.Jwt.Services;
+using Kirel.Logger.HTTP.Blazor.Pages.Listeners;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor.Services;
 

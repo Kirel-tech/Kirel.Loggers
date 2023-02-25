@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.Messages.Blazo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.Messages.Blazor.Pages", "Kirel.Logger.Messages.Blazor.Pages\Kirel.Logger.Messages.Blazor.Pages.csproj", "{9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Blazor.HttpLogger", "Kirel.Blazor.HttpLogger\Kirel.Blazor.HttpLogger.csproj", "{BCD4726C-8BDF-48F8-8525-078EC71583DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.HTTP.Blazor.GUI", "Kirel.Logger.HTTP.Blazor.GUI\Kirel.Logger.HTTP.Blazor.GUI.csproj", "{BCD4726C-8BDF-48F8-8525-078EC71583DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.HTTP.Blazor.Pages", "Kirel.Logger.HTTP.Blazor.Pages\Kirel.Logger.HTTP.Blazor.Pages.csproj", "{701A3373-7D42-4EAF-B90D-156A6C61981D}"
 EndProject
@@ -62,14 +62,14 @@ Global
 		{F2F96938-878D-4D0A-A37D-5C4CF21CA872}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2F96938-878D-4D0A-A37D-5C4CF21CA872}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2F96938-878D-4D0A-A37D-5C4CF21CA872}.Release|Any CPU.Build.0 = Release|Any CPU
-        {439BB1BB-9102-4171-9BF4-2410673A2A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-        {439BB1BB-9102-4171-9BF4-2410673A2A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-        {439BB1BB-9102-4171-9BF4-2410673A2A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-        {439BB1BB-9102-4171-9BF4-2410673A2A6E}.Release|Any CPU.Build.0 = Release|Any CPU
-        {9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-        {9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}.Debug|Any CPU.Build.0 = Debug|Any CPU
-        {9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}.Release|Any CPU.ActiveCfg = Release|Any CPU
-        {9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}.Release|Any CPU.Build.0 = Release|Any CPU
+								{439BB1BB-9102-4171-9BF4-2410673A2A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+								{439BB1BB-9102-4171-9BF4-2410673A2A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+								{439BB1BB-9102-4171-9BF4-2410673A2A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+								{439BB1BB-9102-4171-9BF4-2410673A2A6E}.Release|Any CPU.Build.0 = Release|Any CPU
+								{9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+								{9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+								{9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+								{9E2EE6A6-B28E-4E52-8ECC-0F574FABA296}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BCD4726C-8BDF-48F8-8525-078EC71583DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BCD4726C-8BDF-48F8-8525-078EC71583DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCD4726C-8BDF-48F8-8525-078EC71583DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
