@@ -1,4 +1,4 @@
-﻿namespace Kirel.MessageLogger.Models;
+﻿namespace Kirel.Logger.Messages.Client.Models;
 
 /// <summary>
 /// Application options for kirel db logger

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Kirel.MessageLogger.Interfaces;
+namespace Kirel.Logger.Messages.Client.Interfaces;
 
 /// <summary>
 /// Interface that represents type used for logging

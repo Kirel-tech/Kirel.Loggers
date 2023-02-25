@@ -1,13 +1,13 @@
 ﻿using System.Text;
-using Kirel.MessageLogger.Interfaces;
+using Kirel.Logger.Messages.Client.Interfaces;
+using Kirel.Logger.Messages.Client.Models;
 using Kirel.Logger.Messages.DTOs;
-using Kirel.MessageLogger.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace Kirel.MessageLogger.Logger;
+namespace Kirel.Logger.Messages.Client.Logger;
 
 /// <summary>
 /// Class that implements <see cref="IKirelMessageLogger"/> with writing logs to database by API
