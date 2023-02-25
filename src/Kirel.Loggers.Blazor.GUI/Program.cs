@@ -21,28 +21,27 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 var defaultBaseUri = new Uri(builder.HostEnvironment.BaseAddress);
 var hostOnlyBaseStr =  $"{defaultBaseUri.Scheme}://{defaultBaseUri.Host}:{defaultBaseUri.Port}/";
 
-var identityUriStr = builder.Configuration["Services:Identity"];
+var authenticationUriStr = builder.Configuration["Services:Authentication"];
 var httpLogsUriStr = builder.Configuration["Services:HttpLogsApi"];
-var logsMessageStrUri = builder.Configuration["Services:MessageLogsApi"];
+var logsMessageUriStr = builder.Configuration["Services:MessageLogsApi"];
 if (string.IsNullOrWhiteSpace(httpLogsUriStr))
 {
     Console.WriteLine("Http logs api address is not set in appsettings.json");
     httpLogsUriStr = hostOnlyBaseStr;
 }
-if (string.IsNullOrWhiteSpace(identityUriStr))
-{
-    Console.WriteLine("Identity address is not set in appsettings.json");
-    identityUriStr = hostOnlyBaseStr;
-}
-
-if (string.IsNullOrWhiteSpace(logsMessageStrUri))
+if (string.IsNullOrWhiteSpace(logsMessageUriStr))
 {
     Console.WriteLine("Message logs api address is not set in appsettings.json");
-    logsMessageStrUri = hostOnlyBaseStr;
+    logsMessageUriStr = hostOnlyBaseStr;
+}
+if (string.IsNullOrWhiteSpace(authenticationUriStr))
+{
+    Console.WriteLine("Authentication api address is not set in appsettings.json");
+    authenticationUriStr = hostOnlyBaseStr;
 }
 
 var httpLogsUri = new Uri(httpLogsUriStr);
-var logsMessageUri = new Uri(logsMessageStrUri);
+var logsMessageUri = new Uri(logsMessageUriStr);
 
 builder.Services.AddMudServices();
 
@@ -72,8 +71,8 @@ builder.Services.AddHttpClient(string.Empty, hc => hc.BaseAddress = new Uri(buil
 builder.Services.AddScoped<IClientAuthenticationService, KirelClientJwtAuthenticationService>();
 builder.Services.Configure<KirelClientJwtAuthenticationOptions>(options =>
 {
-    options.BaseUrl = identityUriStr;
-    options.RelativeUrl = "authentication/jwt"; // From Example project /Controllers/ExJwtAuthenticationController Route Attribute
+    options.BaseUrl = authenticationUriStr;
+    options.RelativeUrl = "api/authentication/jwt"; // From Example project /Controllers/ExJwtAuthenticationController Route Attribute
 });
 
 // Add JWT Authentication state provider

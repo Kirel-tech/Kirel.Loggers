@@ -20,20 +20,20 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 var defaultBaseUri = new Uri(builder.HostEnvironment.BaseAddress);
 var hostOnlyBaseStr =  $"{defaultBaseUri.Scheme}://{defaultBaseUri.Host}:{defaultBaseUri.Port}/";
 
-var identityUriStr = builder.Configuration["Services:Identity"];
-var logsMessageStrUri = builder.Configuration["Services:MessageLogsApi"];
+var authenticationUriStr = builder.Configuration["Services:Authentication"];
+var logsMessageUriStr = builder.Configuration["Services:MessageLogsApi"];
 
-if (string.IsNullOrWhiteSpace(identityUriStr))
+if (string.IsNullOrWhiteSpace(authenticationUriStr))
 {
-    Console.WriteLine("Identity address is not set in appsettings.json");
-    identityUriStr = hostOnlyBaseStr;
+    Console.WriteLine("Authentication address is not set in appsettings.json");
+    authenticationUriStr = hostOnlyBaseStr;
 }
-if (string.IsNullOrWhiteSpace(logsMessageStrUri))
+if (string.IsNullOrWhiteSpace(logsMessageUriStr))
 {
     Console.WriteLine("Message logs api address is not set in appsettings.json");
-    logsMessageStrUri = hostOnlyBaseStr;
+    logsMessageUriStr = hostOnlyBaseStr;
 }
-var logsMessageUri = new Uri(logsMessageStrUri);
+var logsMessageUri = new Uri(logsMessageUriStr);
 
 // Add http client JWT Authorization handler to DI
 builder.Services.AddScoped<KirelJwtHttpClientAuthorizationHandler>();
@@ -56,8 +56,8 @@ builder.Services.AddHttpClient(string.Empty, hc => hc.BaseAddress = new Uri(buil
 builder.Services.AddScoped<IClientAuthenticationService, KirelClientJwtAuthenticationService>();
 builder.Services.Configure<KirelClientJwtAuthenticationOptions>(options =>
 {
-    options.BaseUrl = identityUriStr;
-    options.RelativeUrl = "authentication/jwt"; // From Example project /Controllers/ExJwtAuthenticationController Route Attribute
+    options.BaseUrl = authenticationUriStr;
+    options.RelativeUrl = "api/authentication/jwt"; // From Example project /Controllers/ExJwtAuthenticationController Route Attribute
 });
 
 // Add JWT Authentication state provider
