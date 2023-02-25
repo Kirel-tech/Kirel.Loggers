@@ -1,0 +1,41 @@
+﻿---
+name: Publish
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  publish:
+    name: Build and publish
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [ HTTP.DTOs, Messages.DTOs, HTTP.Client.Middlewares, Messages.Client ]
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+      - name: Build tag
+        if: github.ref != 'refs/heads/main'
+        run: |
+          dotnet restore src/Kirel.Logger.${{ matrix.package }}/Kirel.Logger.${{ matrix.package }}.csproj
+          dotnet build src/Kirel.Logger.${{ matrix.package }}/Kirel.Logger.${{ matrix.package }}.csproj
+          dotnet pack -o ./packages src/Kirel.Logger.${{ matrix.package }}/Kirel.Logger.${{ matrix.package }}.csproj
+      - name: Build main
+        if: github.ref == 'refs/heads/main'
+        run: |
+          dotnet restore src/Kirel.Logger.${{ matrix.package }}/Kirel.Logger.${{ matrix.package }}.csproj
+          dotnet build --version-suffix "-main-${{github.run_number}}-$(echo ${GITHUB_SHA} | cut -c1-8)" src/Kirel.Logger.${{ matrix.package }}/Kirel.Logger.${{ matrix.package }}.csproj
+          dotnet pack --version-suffix "-main-${{github.run_number}}-$(echo ${GITHUB_SHA} | cut -c1-8)" -o ./packages src/Kirel.Logger.${{ matrix.package }}/Kirel.Logger.${{ matrix.package }}.csproj
+      - name: Push
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          dotnet nuget push packages/*.nupkg -k ${NUGET_API_KEY} -s nuget.org
