@@ -1,4 +1,4 @@
-﻿namespace Kirel.Blazor.HttpLogger.Listeners;
+﻿namespace Kirel.Logger.HTTP.Blazor.Pages.Listeners;
 
 public class NotFoundListener
 {
