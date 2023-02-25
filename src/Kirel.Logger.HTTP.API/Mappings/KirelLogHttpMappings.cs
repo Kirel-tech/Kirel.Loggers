@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Kirel.Logger.HTTP.DTOs;
-using Kirel.HttpLogger.API.Models;
+using Kirel.Logger.HTTP.API.Models;
 
-namespace Kirel.HttpLogger.API.Mappings;
+namespace Kirel.Logger.HTTP.API.Mappings;
 
 /// <summary>
 /// Mapper of <see cref="KirelLogHttp"/> entities

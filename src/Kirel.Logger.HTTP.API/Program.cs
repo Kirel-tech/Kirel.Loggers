@@ -1,7 +1,7 @@
 using System.Reflection;
-using Kirel.HttpLogger.API.Context;
-using Kirel.HttpLogger.API.Models;
-using Kirel.HttpLogger.API.Services;
+using Kirel.Logger.HTTP.API.Context;
+using Kirel.Logger.HTTP.API.Models;
+using Kirel.Logger.HTTP.API.Services;
 using Kirel.Identity.Core.Models;
 using Kirel.Logger.Shared.Handlers;
 using Kirel.Logger.Shared.Models;

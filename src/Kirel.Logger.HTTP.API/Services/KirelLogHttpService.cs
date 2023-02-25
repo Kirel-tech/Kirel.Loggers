@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Kirel.Logger.HTTP.DTOs;
 using Kirel.DTO;
-using Kirel.HttpLogger.API.Context;
-using Kirel.HttpLogger.API.Models;
+using Kirel.Logger.HTTP.API.Context;
+using Kirel.Logger.HTTP.API.Models;
 using Kirel.Repositories.Infrastructure.Generics;
 using SortDirection = Kirel.Repositories.Sorts.SortDirection;
 
-namespace Kirel.HttpLogger.API.Services;
+namespace Kirel.Logger.HTTP.API.Services;
 
 /// <summary>
 /// Service that managing http logs using generic repository 
