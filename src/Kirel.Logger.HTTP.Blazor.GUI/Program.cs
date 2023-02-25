@@ -21,20 +21,20 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 var defaultBaseUri = new Uri(builder.HostEnvironment.BaseAddress);
 var hostOnlyBaseStr =  $"{defaultBaseUri.Scheme}://{defaultBaseUri.Host}:{defaultBaseUri.Port}/";
 
-var identityUriStr = builder.Configuration["Services:Identity"];
-var httpLogsStrUri = builder.Configuration["Services:HttpLogsApi"];
-if (string.IsNullOrWhiteSpace(httpLogsStrUri))
+var authenticationUriStr = builder.Configuration["Services:Authentication"];
+var httpLogsUriStr = builder.Configuration["Services:HttpLogsApi"];
+if (string.IsNullOrWhiteSpace(httpLogsUriStr))
 {
     Console.WriteLine("Http logs api address is not set in appsettings.json");
-    httpLogsStrUri = hostOnlyBaseStr;
+    httpLogsUriStr = hostOnlyBaseStr;
 }
-if (string.IsNullOrWhiteSpace(identityUriStr))
+if (string.IsNullOrWhiteSpace(authenticationUriStr))
 {
-    Console.WriteLine("Identity address is not set in appsettings.json");
-    identityUriStr = hostOnlyBaseStr;
+    Console.WriteLine("Authentication address is not set in appsettings.json");
+    authenticationUriStr = hostOnlyBaseStr;
 }
 
-var httpLogsUri = new Uri(httpLogsStrUri);
+var httpLogsUri = new Uri(httpLogsUriStr);
 
 builder.Services.AddMudServices();
 
@@ -59,8 +59,8 @@ builder.Services.AddHttpClient(string.Empty, hc => hc.BaseAddress = new Uri(buil
 builder.Services.AddScoped<IClientAuthenticationService, KirelClientJwtAuthenticationService>();
 builder.Services.Configure<KirelClientJwtAuthenticationOptions>(options =>
 {
-    options.BaseUrl = identityUriStr;
-    options.RelativeUrl = "authentication/jwt"; // From Example project /Controllers/ExJwtAuthenticationController Route Attribute
+    options.BaseUrl = httpLogsUriStr;
+    options.RelativeUrl = "api/authentication/jwt"; // From Example project /Controllers/ExJwtAuthenticationController Route Attribute
 });
 
 // Add JWT Authentication state provider
