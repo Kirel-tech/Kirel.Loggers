@@ -1,4 +1,4 @@
-﻿namespace Kirel.HttpLogger.Middlewares.Models;
+﻿namespace Kirel.Logger.HTTP.Client.Middlewares.Models;
 
 /// <summary>
 /// Application options for kirel db logger

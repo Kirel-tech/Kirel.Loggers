@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.Shared", "Kire
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.Messages.DTOs", "Kirel.Logger.Messages.DTOs\Kirel.Logger.Messages.DTOs.csproj", "{875B6246-5E40-4E56-A143-1119A0763AA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.HttpLogger.Middlewares", "Kirel.HttpLogger.Middlewares\Kirel.HttpLogger.Middlewares.csproj", "{F2F96938-878D-4D0A-A37D-5C4CF21CA872}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.HTTP.Client.Middlewares", "Kirel.Logger.HTTP.Client.Middlewares\Kirel.Logger.HTTP.Client.Middlewares.csproj", "{F2F96938-878D-4D0A-A37D-5C4CF21CA872}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Blazor.MessageLogger", "Kirel.Blazor.MessageLogger\Kirel.Blazor.MessageLogger.csproj", "{439BB1BB-9102-4171-9BF4-2410673A2A6E}"
 EndProject
