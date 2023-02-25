@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.MessageLogger", "Kire
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.HttpLogger.API", "Kirel.HttpLogger.API\Kirel.HttpLogger.API.csproj", "{5454E88F-F7B4-427A-82C2-FB1672FB5AED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.MessageLogger.API", "Kirel.MessageLogger.API\Kirel.MessageLogger.API.csproj", "{37AF700E-7F90-495F-B744-2FF76EFEB4E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.Messages.API", "Kirel.Logger.Messages.API\Kirel.Logger.Messages.API.csproj", "{37AF700E-7F90-495F-B744-2FF76EFEB4E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.Shared", "Kirel.Logger.Shared\Kirel.Logger.Shared.csproj", "{97A63C9A-30FD-4FCE-942F-04A0531E145E}"
 EndProject

@@ -1,6 +1,6 @@
 ﻿using Kirel.Repositories.Interfaces;
 
-namespace Kirel.MessageLogger.API.Models;
+namespace Kirel.Logger.Messages.API.Models;
 
 /// <summary>
 /// Database log entity

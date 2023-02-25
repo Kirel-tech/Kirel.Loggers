@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Kirel.MessageLogger.API.Models;
+using Kirel.Logger.Messages.API.Models;
 using Kirel.Logger.Messages.DTOs;
 
-namespace Kirel.MessageLogger.API.Mappings;
+namespace Kirel.Logger.Messages.API.Mappings;
 
 /// <summary>
 /// Mapper of <see cref="KirelLogMessage"/> entities

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Kirel.DTO;
-using Kirel.MessageLogger.API.Context;
-using Kirel.MessageLogger.API.Models;
+using Kirel.Logger.Messages.API.Context;
+using Kirel.Logger.Messages.API.Models;
 using Kirel.Logger.Messages.DTOs;
 using Kirel.Repositories.Infrastructure.Generics;
 using SortDirection = Kirel.Repositories.Sorts.SortDirection;
 
-namespace Kirel.MessageLogger.API.Services;
+namespace Kirel.Logger.Messages.API.Services;
 
 /// <summary>
 /// Service that managing logs using generic repository 
