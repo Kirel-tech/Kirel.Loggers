@@ -1,6 +1,6 @@
 ﻿using Kirel.Repositories.Interfaces;
 
-namespace Kirel.HttpLogger.API.Models;
+namespace Kirel.Logger.HTTP.API.Models;
 
 /// <summary>
 /// Http database log entity

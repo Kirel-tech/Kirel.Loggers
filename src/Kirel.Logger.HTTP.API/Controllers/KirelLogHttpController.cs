@@ -1,12 +1,12 @@
 ﻿using Kirel.Logger.HTTP.DTOs;
 using Kirel.DTO;
-using Kirel.HttpLogger.API.Services;
+using Kirel.Logger.HTTP.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SortDirection = Kirel.Repositories.Sorts.SortDirection;
 
-namespace Kirel.HttpLogger.API.Controllers;
+namespace Kirel.Logger.HTTP.API.Controllers;
 
 /// <summary>
 /// Controller for working with the http logs

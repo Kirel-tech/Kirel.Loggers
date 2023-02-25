@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.HTTP.DTOs", "K
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.Messages.Client", "Kirel.Logger.Messages.Client\Kirel.Logger.Messages.Client.csproj", "{46180E92-E3D9-4A94-812C-CB14A92F9522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.HttpLogger.API", "Kirel.HttpLogger.API\Kirel.HttpLogger.API.csproj", "{5454E88F-F7B4-427A-82C2-FB1672FB5AED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.HTTP.API", "Kirel.Logger.HTTP.API\Kirel.Logger.HTTP.API.csproj", "{5454E88F-F7B4-427A-82C2-FB1672FB5AED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.Messages.API", "Kirel.Logger.Messages.API\Kirel.Logger.Messages.API.csproj", "{37AF700E-7F90-495F-B744-2FF76EFEB4E7}"
 EndProject

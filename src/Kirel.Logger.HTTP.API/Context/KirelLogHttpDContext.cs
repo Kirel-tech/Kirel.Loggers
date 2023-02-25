@@ -1,8 +1,8 @@
-﻿using Kirel.HttpLogger.API.Models;
+﻿using Kirel.Logger.HTTP.API.Models;
 using Kirel.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kirel.HttpLogger.API.Context;
+namespace Kirel.Logger.HTTP.API.Context;
 
 /// <summary>
 /// Derived class from <see cref="DbContext"/> for working with http logs
