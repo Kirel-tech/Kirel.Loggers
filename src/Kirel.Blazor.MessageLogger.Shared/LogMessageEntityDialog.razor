@@ -1,14 +1,14 @@
-﻿@using Kirel.Blazor.MessageLogger.Shared.Models
-@using Kirel.Blazor.Entities.Models
+﻿@using Kirel.Blazor.Entities.Models
+@using Kirel.Logger.Messages.DTOs
 
-<EntityDialog TCreateDto="LogMessageDto" TUpdateDto="LogMessageDto" TDto="LogMessageDto"
+<EntityDialog TCreateDto="KirelLogMessageDto" TUpdateDto="KirelLogMessageDto" TDto="KirelLogMessageDto"
               Dto="@Dto" Options="Options">
     <Content>
         <MudContainer Class="mx-auto px-4 justify-center my-4 mud-text-align-center">
             <MudGrid>
                 <MudItem xs="6">
-                    <EntityProperties  Dto="Dto"
-                                       TCreateDto="LogMessageDto" TUpdateDto="LogMessageDto" TDto="LogMessageDto" 
+                    <EntityProperties  Dto="@Dto"
+                                       TCreateDto="KirelLogMessageDto" TUpdateDto="KirelLogMessageDto" TDto="KirelLogMessageDto" 
                                        Options="@Options"/>
                 </MudItem>
                 <MudItem xs="6">

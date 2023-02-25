@@ -1,14 +1,14 @@
-﻿@using Kirel.Blazor.MessageLogger.Shared.Models
-@using CurrieTechnologies.Razor.Clipboard
+﻿@using CurrieTechnologies.Razor.Clipboard
 @using System.Globalization
 @using System.Net.Http.Json
 @using Kirel.Blazor.Shared
 @using Kirel.DTOs
+@using Kirel.Logger.Messages.DTOs
 @inject ClipboardService Clipboard
 @inject IHttpClientFactory HttpClientFactory
 @inject IDialogService DialogService
 
-<MudTable Bordered="@true" Striped="@true" Dense="@true" Loading="@_loading" @ref="_table" ServerData="@(new Func<TableState, Task<TableData<LogMessageDto>>>(ServerReload))" Hover="true">
+<MudTable Bordered="@true" Striped="@true" Dense="@true" Loading="@_loading" @ref="_table" ServerData="@(new Func<TableState, Task<TableData<KirelLogMessageDto>>>(ServerReload))" Hover="true">
     <ToolBarContent>
 
         <MudTextField T="string" ValueChanged="@(OnSearch)" Placeholder="Search" Adornment="Adornment.Start"
@@ -16,13 +16,13 @@
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Id</MudTh>
-        <MudTh><MudTableSortLabel SortLabel="Created" T="LogMessageDto">Created</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="Message" T="LogMessageDto">Message</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="ExceptionMessage" T="LogMessageDto">Exception message</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="InnerExceptionMessage" T="LogMessageDto">Inner exception message</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="StackTrace" T="LogMessageDto">Stack trace</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="Source" T="LogMessageDto">Source</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="Level" T="LogMessageDto">Level</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Created" T="KirelLogMessageDto">Created</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Message" T="KirelLogMessageDto">Message</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="ExceptionMessage" T="KirelLogMessageDto">Exception message</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="InnerExceptionMessage" T="KirelLogMessageDto">Inner exception message</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="StackTrace" T="KirelLogMessageDto">Stack trace</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Source" T="KirelLogMessageDto">Source</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Level" T="KirelLogMessageDto">Level</MudTableSortLabel></MudTh>
         <MudTh>Edit</MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -56,7 +56,7 @@
 @code {
     private readonly string _relativeUrl = "api/log/message";
     private string _searchString = "";
-    private MudTable<LogMessageDto> _table;
+    private MudTable<KirelLogMessageDto> _table;
     private HttpClient _httpClient;
     private bool _loading;
 
@@ -67,15 +67,15 @@
         await base.OnInitializedAsync();
     }
 
-    private async Task<TableData<LogMessageDto>> ServerReload(TableState state)
+    private async Task<TableData<KirelLogMessageDto>> ServerReload(TableState state)
     {
         var uriParamsStr = HttpRequestParamsGenerator.GetListParams(state);
         if (!string.IsNullOrEmpty(_searchString))
             uriParamsStr += $"&search={_searchString}";
         
-        var responseUsers = await _httpClient.GetFromJsonAsync<PaginatedResult<List<LogMessageDto>>>($"{_relativeUrl}?{uriParamsStr}");
+        var responseUsers = await _httpClient.GetFromJsonAsync<PaginatedResult<List<KirelLogMessageDto>>>($"{_relativeUrl}?{uriParamsStr}");
         _loading = false;
-        return new TableData<LogMessageDto>{TotalItems = responseUsers.Pagination.TotalCount, Items = responseUsers.Data};
+        return new TableData<KirelLogMessageDto>{TotalItems = responseUsers.Pagination.TotalCount, Items = responseUsers.Data};
     }
 
     private async Task ReloadServerDataOnDialogClose(IDialogReference dialogReference)
@@ -87,7 +87,7 @@
         }
     }
     
-    private async void ShowLogDialog(LogMessageDto dto)
+    private async void ShowLogDialog(KirelLogMessageDto dto)
     {
         var dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true };
         var parameters = new DialogParameters {{"Dto", dto}};
