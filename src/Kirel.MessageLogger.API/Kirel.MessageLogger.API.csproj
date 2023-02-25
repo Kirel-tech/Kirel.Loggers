@@ -31,7 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Kirel.HttpLogger.DTOs\Kirel.HttpLogger.DTOs.csproj" />
+      <ProjectReference Include="..\Kirel.Logger.HTTP.DTOs\Kirel.Logger.HTTP.DTOs.csproj" />
       <ProjectReference Include="..\Kirel.Logger.Shared\Kirel.Logger.Shared.csproj" />
       <ProjectReference Include="..\Kirel.Logger.Messages.DTOs\Kirel.Logger.Messages.DTOs.csproj" />
     </ItemGroup>

@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using Kirel.HttpLogger.DTOs;
+using Kirel.Logger.HTTP.DTOs;
 using Kirel.HttpLogger.Middlewares.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;

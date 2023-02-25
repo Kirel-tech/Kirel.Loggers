@@ -1,4 +1,4 @@
-﻿using Kirel.HttpLogger.DTOs;
+﻿using Kirel.Logger.HTTP.DTOs;
 using Kirel.DTO;
 using Kirel.HttpLogger.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
