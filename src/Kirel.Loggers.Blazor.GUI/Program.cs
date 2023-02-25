@@ -3,7 +3,7 @@ using Blazored.LocalStorage;
 using CurrieTechnologies.Razor.Clipboard;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Kirel.Blazor.Logger;
+using Kirel.Loggers.Blazor.GUI;
 using Kirel.Identity.Client.Blazor.Services;
 using Kirel.Identity.Client.Interfaces;
 using Kirel.Identity.Client.Jwt.Handlers;

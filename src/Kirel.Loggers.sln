@@ -22,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.HTTP.Blazor.GU
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.HTTP.Blazor.Pages", "Kirel.Logger.HTTP.Blazor.Pages\Kirel.Logger.HTTP.Blazor.Pages.csproj", "{701A3373-7D42-4EAF-B90D-156A6C61981D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Blazor.Logger", "Kirel.Blazor.Logger\Kirel.Blazor.Logger.csproj", "{9137EFDB-ADED-4DF6-B694-EFD8CE560DFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Loggers.Blazor.GUI", "Kirel.Loggers.Blazor.GUI\Kirel.Loggers.Blazor.GUI.csproj", "{9137EFDB-ADED-4DF6-B694-EFD8CE560DFB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{60997860-A35D-4006-906D-EE58CA82BE72}"
 EndProject
