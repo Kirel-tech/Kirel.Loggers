@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Kirel.Blazor.Entities.Models;
-using Kirel.Blazor.MessageLogger.Shared.Models;
+using Kirel.Logger.Messages.DTOs;
 using Microsoft.AspNetCore.Components;
 
-namespace Kirel.Blazor.MessageLogger.Shared.Pages;
+namespace Kirel.Blazor.MessageLogger.Shared;
 
 public partial class LogMessageEntityDialog
 {
@@ -21,7 +21,7 @@ public partial class LogMessageEntityDialog
     /// Data transfer object for get the entity
     /// </summary>
     [Parameter]
-    public LogMessageDto? Dto { get; set; }
+    public KirelLogMessageDto? Dto { get; set; }
     /// <summary>
     /// Options for control dialog and fields entity settings
     /// </summary>
@@ -51,12 +51,12 @@ public partial class LogMessageEntityDialog
     /// Before create request event handler
     /// </summary>
     [Parameter]
-    public Func<LogMessageDto?, Task>? BeforeCreateRequest { get; set; }
+    public Func<KirelLogMessageDto?, Task>? BeforeCreateRequest { get; set; }
     /// <summary>
     /// Before update request event handler
     /// </summary>
     [Parameter]
-    public Func<LogMessageDto?, Task>? BeforeUpdateRequest { get; set; }
+    public Func<KirelLogMessageDto?, Task>? BeforeUpdateRequest { get; set; }
     
     private HttpClient _httpClient = null!;
     

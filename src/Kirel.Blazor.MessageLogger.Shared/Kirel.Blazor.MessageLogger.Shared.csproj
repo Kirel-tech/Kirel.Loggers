@@ -26,4 +26,8 @@
       <_ContentIncludedByDefault Remove="wwwroot\exampleJsInterop.js" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Kirel.Logger.Messages.DTOs\Kirel.Logger.Messages.DTOs.csproj" />
+    </ItemGroup>
+
 </Project>
