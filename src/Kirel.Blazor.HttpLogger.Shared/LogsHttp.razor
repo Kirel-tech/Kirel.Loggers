@@ -1,14 +1,14 @@
-﻿@using Kirel.Blazor.HttpLogger.Shared.Models
-@using CurrieTechnologies.Razor.Clipboard
+﻿@using CurrieTechnologies.Razor.Clipboard
 @using System.Globalization
 @using System.Net.Http.Json
 @using Kirel.Blazor.Shared
 @using Kirel.DTOs
+@using Kirel.Logger.HTTP.DTOs
 @using Microsoft.JSInterop
 @inject ClipboardService Clipboard
 @inject IHttpClientFactory HttpClientFactory
 @inject IDialogService DialogService
-@inject NavigationManager _nav
+@inject NavigationManager Nav
 
 <style>
     .mud-table-dense * .mud-table-row .mud-table-cell {
@@ -29,7 +29,7 @@
     }
 </style>
 
-<MudTable Bordered="@true" Striped="@true" Dense="@true" Loading="@_loading" @ref="_table" ServerData="@(new Func<TableState, Task<TableData<LogHttpDto>>>(ServerReload))" Hover="true">
+<MudTable Bordered="@true" Striped="@true" Dense="@true" Loading="@_loading" @ref="_table" ServerData="@(new Func<TableState, Task<TableData<KirelLogHttpDto>>>(ServerReload))" Hover="true">
     <ToolBarContent>
 
         <MudTextField T="string" ValueChanged="@(OnSearch)" Placeholder="Search" Adornment="Adornment.Start"
@@ -37,16 +37,16 @@
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Id</MudTh>
-        <MudTh><MudTableSortLabel SortLabel="Created" T="LogHttpDto">Created</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="Username" T="LogHttpDto">Username</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="Source" T="LogHttpDto">Source</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="Host" T="LogHttpDto">Host</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="Path" T="LogHttpDto">Path</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="Method" T="LogHttpDto">Method</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="Protocol" T="LogHttpDto">Protocol</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="ClientIp" T="LogHttpDto">Ip</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="QueryString" T="LogHttpDto">Query string</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="ResponseCode" T="LogHttpDto">Response code</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Created" T="KirelLogHttpDto">Created</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Username" T="KirelLogHttpDto">Username</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Source" T="KirelLogHttpDto">Source</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Host" T="KirelLogHttpDto">Host</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Path" T="KirelLogHttpDto">Path</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Method" T="KirelLogHttpDto">Method</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Protocol" T="KirelLogHttpDto">Protocol</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="ClientIp" T="KirelLogHttpDto">Ip</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="QueryString" T="KirelLogHttpDto">Query string</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="ResponseCode" T="KirelLogHttpDto">Response code</MudTableSortLabel></MudTh>
         <MudTh>Detail</MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -83,7 +83,7 @@
 @code {
     private readonly string _relativeUrl = "api/log/http";
     private string _searchString = "";
-    private MudTable<LogHttpDto> _table;
+    private MudTable<KirelLogHttpDto> _table;
     private HttpClient _httpClient;
     private bool _loading;
 
@@ -94,15 +94,15 @@
         await base.OnInitializedAsync();
     }
 
-    private async Task<TableData<LogHttpDto>> ServerReload(TableState state)
+    private async Task<TableData<KirelLogHttpDto>> ServerReload(TableState state)
     {
         var uriParamsStr = HttpRequestParamsGenerator.GetListParams(state);
         if (!string.IsNullOrEmpty(_searchString))
             uriParamsStr += $"&search={_searchString}";
         
-        var responseUsers = await _httpClient.GetFromJsonAsync<PaginatedResult<List<LogHttpDto>>>($"{_relativeUrl}?{uriParamsStr}");
+        var responseUsers = await _httpClient.GetFromJsonAsync<PaginatedResult<List<KirelLogHttpDto>>>($"{_relativeUrl}?{uriParamsStr}");
         _loading = false;
-        return new TableData<LogHttpDto>{TotalItems = responseUsers.Pagination.TotalCount, Items = responseUsers.Data};
+        return new TableData<KirelLogHttpDto>{TotalItems = responseUsers.Pagination.TotalCount, Items = responseUsers.Data};
     }
 
     private async Task ReloadServerDataOnDialogClose(IDialogReference dialogReference)
@@ -114,9 +114,9 @@
         }
     }
 
-    private void ShowLogPage(LogHttpDto dto)
+    private void ShowLogPage(KirelLogHttpDto dto)
     {
-        _nav.NavigateTo($"/log/http/{dto.Id}");
+        Nav.NavigateTo($"/log/http/{dto.Id}");
     }
 
     private void OnSearch(string text)
