@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Kirel.Blazor.HttpLogger.Shared\Kirel.Blazor.HttpLogger.Shared.csproj" />
+      <ProjectReference Include="..\Kirel.Logger.HTTP.Blazor.Pages\Kirel.Logger.HTTP.Blazor.Pages.csproj" />
       <ProjectReference Include="..\Kirel.Logger.Messages.Blazor.Pages\Kirel.Logger.Messages.Blazor.Pages.csproj" />
     </ItemGroup>
 
