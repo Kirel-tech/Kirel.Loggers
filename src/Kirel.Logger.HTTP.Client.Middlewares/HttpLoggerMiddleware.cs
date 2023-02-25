@@ -1,11 +1,11 @@
 ﻿using System.Text;
 using Kirel.Logger.HTTP.DTOs;
-using Kirel.HttpLogger.Middlewares.Models;
+using Kirel.Logger.HTTP.Client.Middlewares.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace Kirel.HttpLogger.Middlewares;
+namespace Kirel.Logger.HTTP.Client.Middlewares;
 
 /// <summary>
 /// Middleware that logs both http request and response
