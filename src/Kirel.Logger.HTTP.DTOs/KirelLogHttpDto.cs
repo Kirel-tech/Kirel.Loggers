@@ -1,10 +1,18 @@
-﻿namespace Kirel.HttpLogger.DTOs;
+﻿namespace Kirel.Logger.HTTP.DTOs;
 
 /// <summary>
-/// Data transfer object for create http log
+/// Data transfer object for send http log
 /// </summary>
-public class KirelLogHttpCreateDto
+public class KirelLogHttpDto
 {
+    /// <summary>
+    /// Log unique identifier
+    /// </summary>
+    public Guid Id { get; set; }      
+    /// <summary>
+    /// Log create date and time
+    /// </summary>
+    public DateTime Created { get; set; }
     /// <summary>
     /// Unique name of the user
     /// </summary>

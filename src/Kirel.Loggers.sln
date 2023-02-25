@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.HttpLogger.DTOs", "Kirel.HttpLogger.DTOs\Kirel.HttpLogger.DTOs.csproj", "{153BEB0A-21C4-4333-872E-2D18F48AD7C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.Logger.HTTP.DTOs", "Kirel.Logger.HTTP.DTOs\Kirel.Logger.HTTP.DTOs.csproj", "{153BEB0A-21C4-4333-872E-2D18F48AD7C6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kirel.MessageLogger", "Kirel.MessageLogger\Kirel.MessageLogger.csproj", "{46180E92-E3D9-4A94-812C-CB14A92F9522}"
 EndProject

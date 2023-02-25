@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Kirel.HttpLogger.DTOs;
+using Kirel.Logger.HTTP.DTOs;
 using Kirel.DTO;
 using Kirel.HttpLogger.API.Context;
 using Kirel.HttpLogger.API.Models;
