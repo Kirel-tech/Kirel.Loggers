@@ -37,7 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package: [ HTTP.DTOs, Messages.DTOs, HTTP.Client.Middlewares, Messages.Client, Shared ]
+        package: [ HTTP.DTOs, Messages.DTOs, HTTP.Client.Middlewares, Messages.Client ]
     needs: pr_info
     steps:
       - name: Link PR Check
