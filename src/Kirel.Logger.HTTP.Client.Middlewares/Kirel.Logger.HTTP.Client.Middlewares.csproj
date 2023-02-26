@@ -17,7 +17,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Kirel.Logger.HTTP.DTOs\Kirel.Logger.HTTP.DTOs.csproj" />
-      <ProjectReference Include="..\Kirel.Logger.Shared\Kirel.Logger.Shared.csproj" />
     </ItemGroup>
 
 </Project>
