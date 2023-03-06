@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net.Http.Json;
+using System.Text;
 using Kirel.Logger.HTTP.DTOs;
 using Kirel.Logger.HTTP.Client.Middlewares.Models;
 using Microsoft.AspNetCore.Http;
@@ -39,7 +40,9 @@ public class KirelHttpLoggerMiddleware
         await ParseResponse(httpLog, context);
         try
         {
-            SendLog(httpLog);
+            var logId = await SendLog(httpLog);
+            if (!logId.Equals(Guid.Empty)) 
+                context.Items["logId"] = logId;
         }
         catch
         {
@@ -47,11 +50,18 @@ public class KirelHttpLoggerMiddleware
         }
     }
 
-    private void SendLog(KirelLogHttpDto httpLog)
+    private async Task<Guid> SendLog(KirelLogHttpDto httpLog)
     {
+        var newLogId = Guid.Empty;
         var json = JsonConvert.SerializeObject(httpLog);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
-        _httpClient.PostAsync(_loggerOpt.Value.Uri, content);
+        var response = await _httpClient.PostAsync(_loggerOpt.Value.Uri, content);
+        if (response.IsSuccessStatusCode)
+        {
+            var createdLog = await response.Content.ReadFromJsonAsync<KirelLogHttpDto>();
+            newLogId = createdLog!.Id;
+        }
+        return newLogId;
     }
 
     private async Task ParseResponse(KirelLogHttpDto httpLog, HttpContext context)
