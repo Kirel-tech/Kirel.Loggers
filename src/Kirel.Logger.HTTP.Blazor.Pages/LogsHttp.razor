@@ -12,15 +12,15 @@
 
 <style>
     .mud-table-dense * .mud-table-row .mud-table-cell {
-        padding: 0px 10px 0px 10px;
+        padding: 0 10px 0 10px;
         padding-inline-start: 10px;
         padding-inline-end: 10px;
     }
     .mud-chip .mud-chip-icon {
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
+        margin-left: 0;
+        margin-right: 0;
+        margin-inline-start: 0;
+        margin-inline-end: 0;
         color: inherit;
     }
     td.min {
@@ -83,10 +83,11 @@
 @code {
     private readonly string _relativeUrl = "api/log/http";
     private string _searchString = "";
-    private MudTable<KirelLogHttpDto> _table;
-    private HttpClient _httpClient;
+    private MudTable<KirelLogHttpDto> _table = new();
+    private HttpClient _httpClient = new();
     private bool _loading;
 
+    /// <inheritdoc />
     protected override async Task OnInitializedAsync()
     {
         _loading = true;
@@ -102,7 +103,7 @@
         
         var responseUsers = await _httpClient.GetFromJsonAsync<PaginatedResult<List<KirelLogHttpDto>>>($"{_relativeUrl}?{uriParamsStr}");
         _loading = false;
-        return new TableData<KirelLogHttpDto>{TotalItems = responseUsers.Pagination.TotalCount, Items = responseUsers.Data};
+        return new TableData<KirelLogHttpDto>{TotalItems = responseUsers!.Pagination.TotalCount, Items = responseUsers.Data};
     }
 
     private async Task ReloadServerDataOnDialogClose(IDialogReference dialogReference)

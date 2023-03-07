@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Kirel.Logger.Messages.Blazor.Pages;
 
+/// <inheritdoc />
 public partial class LogMessageEntityDialog
 {
     /// <summary>
@@ -59,7 +60,8 @@ public partial class LogMessageEntityDialog
     public Func<KirelLogMessageDto?, Task>? BeforeUpdateRequest { get; set; }
     
     private HttpClient _httpClient = null!;
-    
+
+    /// <inheritdoc />
     protected override async Task OnInitializedAsync()
     {
         _httpClient = HttpClientFactory.CreateClient(HttpClientName);

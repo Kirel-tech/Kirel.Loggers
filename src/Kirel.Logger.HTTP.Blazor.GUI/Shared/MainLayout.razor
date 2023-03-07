@@ -1,4 +1,5 @@
 ﻿@using Kirel.Identity.Client.Interfaces
+@using Kirel.Identity.Client.Blazor.Pages
 @using Kirel.Logger.HTTP.Blazor.Pages.Listeners
 @inherits LayoutComponentBase
 @inject NotFoundListener NotFoundListener;
@@ -12,7 +13,7 @@
     <Authorized>
         <MudLayout>
             <MudAppBar Elevation="1">
-                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(_ => DrawerToggle())" />
                 <MudText Typo="Typo.h5" Class="ml-3">Kirel Http Logger GUI</MudText>
                 <MudSpacer />
                 <MudIconButton Icon="@Icons.Material.Rounded.Logout" OnClick="Logout" Color="Color.Inherit" Edge="Edge.End" />
@@ -21,7 +22,7 @@
                 <NavMenu/>
             </MudDrawer>
             <MudMainContent>
-                @if (notFound)
+                @if (_notFound)
                 {
                     <h1>Could not find the content you are looking for</h1>
                 }else
@@ -38,7 +39,7 @@
 
 @code{
     
-    private bool notFound;
+    private bool _notFound;
 
     protected override void OnInitialized() => NotFoundListener.OnNotFound += SetNotFound;
 
@@ -55,7 +56,7 @@
     
     void SetNotFound()
     {
-        notFound = true;
+        _notFound = true;
         StateHasChanged();
     }
 } 

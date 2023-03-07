@@ -12,9 +12,9 @@ public class KirelMessageLoggerOptions
     /// <summary>
     /// The name of the application to to associate logs in db with it
     /// </summary>
-    public string Source { get; set; }
+    public string Source { get; set; } = "";
     /// <summary>
     /// The uri that will be used to send logs to be written to the database
     /// </summary>
-    public string Uri { get; set; }
+    public string Uri { get; set; } = "";
 }

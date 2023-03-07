@@ -8,7 +8,7 @@
 @using Formatting = Newtonsoft.Json.Formatting
 @inject IHttpClientFactory HttpClientFactory
 @inject NotFoundListener NotFoundListener;
-@inject IJSRuntime _jsRuntime
+@inject IJSRuntime JsRuntime
 
 <EntityPage TCreateDto="KirelLogHttpDto" TUpdateDto="KirelLogHttpDto" TDto="KirelLogHttpDto"
             Dto="@Dto" Options="Options">
@@ -87,9 +87,15 @@
 @code {
     private readonly string _relativeUrl = "api/log/http";
 
+    /// <summary>
+    /// Contains log entity identifier
+    /// </summary>
     [Parameter]
-    public string LogId { get; set; }
+    public string LogId { get; set; } = "";
 
+    /// <summary>
+    /// Represents log http dto fields
+    /// </summary>
     [Parameter]
     public KirelLogHttpDto? Dto { get; set; } = new();
 
@@ -113,11 +119,14 @@
 
     private HttpClient _httpClient = null!;
 
+
+    /// <inheritdoc />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await _jsRuntime.InvokeVoidAsync("Prism.highlightAll");
+        await JsRuntime.InvokeVoidAsync("Prism.highlightAll");
     }
 
+    /// <inheritdoc />
     protected override async Task OnInitializedAsync()
     {
         var action = EntityAction.Read;
