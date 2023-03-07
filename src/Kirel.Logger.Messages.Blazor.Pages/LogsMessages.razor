@@ -56,10 +56,11 @@
 @code {
     private readonly string _relativeUrl = "api/log/message";
     private string _searchString = "";
-    private MudTable<KirelLogMessageDto> _table;
-    private HttpClient _httpClient;
+    private MudTable<KirelLogMessageDto> _table = new();
+    private HttpClient _httpClient = new();
     private bool _loading;
 
+    /// <inheritdoc />
     protected override async Task OnInitializedAsync()
     {
         _loading = true;
@@ -75,7 +76,7 @@
         
         var responseUsers = await _httpClient.GetFromJsonAsync<PaginatedResult<List<KirelLogMessageDto>>>($"{_relativeUrl}?{uriParamsStr}");
         _loading = false;
-        return new TableData<KirelLogMessageDto>{TotalItems = responseUsers.Pagination.TotalCount, Items = responseUsers.Data};
+        return new TableData<KirelLogMessageDto>{TotalItems = responseUsers!.Pagination.TotalCount, Items = responseUsers.Data};
     }
 
     private async Task ReloadServerDataOnDialogClose(IDialogReference dialogReference)

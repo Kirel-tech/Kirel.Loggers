@@ -21,7 +21,7 @@ public class KirelHttpLoggerMiddleware
     /// Return instance of a http logger middleware
     /// </summary>
     /// <param name="next">A function that can process an HTTP request</param>
-    /// <param name="httpClient">Http client class for sending http requests</param>
+    /// <param name="httpClientFactory">Http client factory for creating requested http client</param>
     /// <param name="loggerOpt">Kirel logger options</param>
     public KirelHttpLoggerMiddleware(RequestDelegate next, IHttpClientFactory httpClientFactory, IOptions<KirelHttpLoggerOptions> loggerOpt)
     {

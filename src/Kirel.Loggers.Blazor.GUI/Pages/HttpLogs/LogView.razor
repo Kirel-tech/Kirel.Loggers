@@ -1,8 +1,9 @@
-﻿@page "/log/http/{LogId}"
+﻿@using Kirel.Logger.HTTP.Blazor.Pages;
+@page "/log/http/{LogId}"
 
-<LogHttpView LogId=@LogId></LogHttpView>
+<LogHttpView LogId="@LogId"></LogHttpView>
 
 @code{
     [Parameter]
-    public string LogId { get; set; }
+    public string LogId { get; set; } = "";
 }

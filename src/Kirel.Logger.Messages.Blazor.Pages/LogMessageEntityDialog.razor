@@ -1,4 +1,7 @@
-﻿@using Kirel.Blazor.Entities.Models
+﻿
+@using Kirel.Blazor.Entities
+@using Kirel.Blazor.Entities.Models
+@using Kirel.Logger.Messages.DTOs
 
 <EntityDialog TCreateDto="KirelLogMessageDto" TUpdateDto="KirelLogMessageDto" TDto="KirelLogMessageDto"
               Dto="@Dto" Options="Options">
@@ -13,7 +16,7 @@
                 <MudItem xs="6">
                     @{
                         var dtoStackTrace = new EntityDtoProperty<string>("StackTrace", null, null, Dto);
-                        var stackTraceReadonly = Options.Action == EntityAction.Read;
+                        var stackTraceReadonly = Options!.Action == EntityAction.Read;
                     }
                     <MudTextField Readonly="@stackTraceReadonly" T="string" Label="Stack trace" Variant="Variant.Text" Text="@dtoStackTrace.Property" Lines="15"/>
                 </MudItem>
