@@ -49,8 +49,9 @@ public class KirelLogMessageService
     /// <returns>Paginated list of logs</returns>
     public async Task<PaginatedResult<List<KirelLogMessageDto>>> GetList(string search, string orderBy, SortDirection orderDirection, int page, int pageSize)
     {
+        var count = await _repository.Count(search);
         var log = await _repository.GetList(search, orderBy, orderDirection, page, pageSize);
-        var pagination = Pagination.Generate(page ,pageSize, log.Count());
+        var pagination = Pagination.Generate(page ,pageSize, count);
         var data = _mapper.Map<List<KirelLogMessageDto>>(log);
         return new PaginatedResult<List<KirelLogMessageDto>>
         {
