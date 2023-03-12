@@ -1,10 +1,8 @@
 ﻿using System.Text;
+using System.Net.Http;
 using Kirel.Logger.Messages.Client.Interfaces;
-using Kirel.Logger.Messages.Client.Models;
 using Kirel.Logger.Messages.DTOs;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Kirel.Logger.Messages.Client.Logger;
@@ -14,8 +12,8 @@ namespace Kirel.Logger.Messages.Client.Logger;
 /// </summary>
 public class KirelMessageLogger : IKirelMessageLogger
 {
-    private readonly IOptions<KirelMessageLoggerOptions> _loggerOpt;
-    private readonly IConfiguration _config;
+    private readonly string _name;
+    private readonly Func<KirelMessageLoggerConfiguration> _getCurrentConfig;
     private readonly HttpClient _httpClient;
 
     /// <summary>
@@ -24,11 +22,11 @@ public class KirelMessageLogger : IKirelMessageLogger
     /// <param name="loggerOpt">Logger options</param>
     /// <param name="config">Application configuration</param>
     /// <param name="httpClient">Instance of the http client</param>
-    public KirelMessageLogger(IOptions<KirelMessageLoggerOptions> loggerOpt, IConfiguration config, HttpClient httpClient)
+    public KirelMessageLogger(string name,
+        Func<KirelMessageLoggerConfiguration> getCurrentConfig, HttpClient httpClient)
     {
-        _loggerOpt = loggerOpt;
-        _config = config;
         _httpClient = httpClient;
+        (_name, _getCurrentConfig) = (name, getCurrentConfig);
     }
     /// <summary>
     /// Function that creates log dto and send it to database by API
@@ -42,14 +40,15 @@ public class KirelMessageLogger : IKirelMessageLogger
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
     {
         if (!IsEnabled(logLevel)) return;
-        var uri = new Uri(_loggerOpt.Value.Uri);
+        var config = _getCurrentConfig(); 
+        var uri = new Uri(config.Uri);
         var log = new KirelLogMessageCreateDto
         {
             Message = formatter(state, exception),
             ExceptionMessage = exception?.Message,
             InnerExceptionMessage = exception?.InnerException?.Message,
             StackTrace = exception?.StackTrace,
-            Source = _loggerOpt.Value.Source,
+            Source = _name,
             Level = logLevel.ToString()
         };
 
@@ -64,8 +63,7 @@ public class KirelMessageLogger : IKirelMessageLogger
     /// <returns>True if enabled, otherwise false</returns>
     public bool IsEnabled(LogLevel logLevel)
     {
-        Enum.TryParse(_config.GetSection("Logging")["LogLevel:Default"], out LogLevel configLogLevel);
-        return logLevel >= configLogLevel;
+        return logLevel >= _getCurrentConfig().KirelLogLevel["Default"];
     }
     
     /// <summary>
