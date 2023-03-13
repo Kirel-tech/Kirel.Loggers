@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Net.Http;
 using System.Reflection;
 using Kirel.Logger.Messages.Client.Interfaces;
 using Kirel.Logger.Messages.DTOs;
@@ -20,8 +19,8 @@ public class KirelMessageLogger : IKirelMessageLogger
     /// <summary>
     /// Returns an instance of the database logger
     /// </summary>
-    /// <param name="loggerOpt">Logger options</param>
-    /// <param name="config">Application configuration</param>
+    /// <param name="name">Name of the class where logger was instantiated.</param>
+    /// <param name="getCurrentConfig">Function for get current config</param>
     /// <param name="httpClient">Instance of the http client</param>
     public KirelMessageLogger(string name,
         Func<KirelMessageLoggerConfiguration> getCurrentConfig, HttpClient httpClient)

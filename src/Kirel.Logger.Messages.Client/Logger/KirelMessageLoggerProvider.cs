@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -16,11 +15,9 @@ public class KirelMessageLoggerProvider : ILoggerProvider
         new(StringComparer.OrdinalIgnoreCase);
     
     /// <summary>
-    /// 
+    /// Creates new instance of <see cref="KirelMessageLoggerProvider"/>
     /// </summary>
-    /// <param name="loggerOpt"></param>
-    /// <param name="config"></param>
-    /// <param name="httpClient"></param>
+    /// <param name="loggerOpt">Used for notifications when TOptions instances change.</param>
     public KirelMessageLoggerProvider(IOptionsMonitor<KirelMessageLoggerConfiguration> loggerOpt)
     {
         _currentConfig = loggerOpt.CurrentValue;
