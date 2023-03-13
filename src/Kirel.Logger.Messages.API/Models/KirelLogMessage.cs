@@ -32,6 +32,10 @@ public class KirelLogMessage : IKeyEntity<Guid>, ICreatedAtTrackedEntity
     /// </summary>
     public string StackTrace { get; set; }
     /// <summary>
+    /// The name of the service that sent this log
+    /// </summary>
+    public string Service { get; set; }
+    /// <summary>
     /// Source application that sent this dto
     /// </summary>
     public string Source { get; set; }
