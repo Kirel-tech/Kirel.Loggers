@@ -21,6 +21,7 @@
         <MudTh><MudTableSortLabel SortLabel="ExceptionMessage" T="KirelLogMessageDto">Exception message</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortLabel="InnerExceptionMessage" T="KirelLogMessageDto">Inner exception message</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortLabel="StackTrace" T="KirelLogMessageDto">Stack trace</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Service" T="KirelLogMessageDto">Service</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortLabel="Source" T="KirelLogMessageDto">Source</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortLabel="Level" T="KirelLogMessageDto">Level</MudTableSortLabel></MudTh>
         <MudTh>Edit</MudTh>
@@ -35,6 +36,7 @@
         <MudTd DataLabel="ExceptionMessage">@context.ExceptionMessage</MudTd>
         <MudTd DataLabel="InnerExceptionMessage">@context.InnerExceptionMessage</MudTd>
         <MudTd DataLabel="StackTrace">@context.StackTrace?[..256]</MudTd>
+        <MudTd DataLabel="StackTrace">@context.Service</MudTd>
         <MudTd DataLabel="Source">@context.Source</MudTd>
         <MudTd DataLabel="Level">@context.Level</MudTd>
         <MudTd Class="min" Style="white-space: nowrap; width: 1%;" DataLabel="Edit">
