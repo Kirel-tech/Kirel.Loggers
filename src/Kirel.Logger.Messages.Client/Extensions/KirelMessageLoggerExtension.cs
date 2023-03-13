@@ -6,8 +6,26 @@ using Microsoft.Extensions.Logging.Configuration;
 
 namespace Kirel.Logger.Messages.Client.Extensions;
 
+/// <summary>
+/// Extension class for adding <see cref="KirelMessageLogger"/> as .NET logger
+/// </summary>
 public static class KirelMessageLoggerExtension
 {
+    /// <summary>
+    /// Register <see cref="KirelMessageLogger"/> as a .NET logger.
+    /// Logger gets settings from appsetting.json. Make sure the following fields are in the 'Logging' section
+    /// <code>
+    /// "KirelMessageLogger": {
+    ///     "LogLevel": {
+    ///         "Default": "Information"
+    ///  },
+    /// "Uri": "https://localhost/api/log/message",
+    /// "AuthorizationHeader": "X-API-KEY",
+    /// "ApiKey": "ExampleAPIKey123!"
+    /// }
+    /// </code>
+    /// </summary>
+    /// <param name="builder">The <see cref="ILoggingBuilder"/>.</param>
     public static ILoggingBuilder AddKirelMessageLogger(
         this ILoggingBuilder builder)
     {
@@ -22,6 +40,13 @@ public static class KirelMessageLoggerExtension
         return builder;
     }
 
+    /// <summary>
+    /// Register <see cref="KirelMessageLogger"/> as a .NET logger.
+    /// All settings fields can be rewritten with 'configure'
+    /// </summary>
+    /// <param name="builder">The <see cref="ILoggingBuilder"/>.</param>
+    /// <param name="configure">Sets logger settings fields above appsettings.json.</param>
+    /// <returns></returns>
     public static ILoggingBuilder AddKirelMessageLogger(
         this ILoggingBuilder builder,
         Action<KirelMessageLoggerConfiguration> configure)
