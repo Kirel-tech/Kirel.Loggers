@@ -117,7 +117,7 @@
 
     private void ShowLogPage(KirelLogHttpDto dto)
     {
-        Nav.NavigateTo($"/log/http/{dto.Id}");
+        Nav.NavigateTo(Nav.BaseUri+$"log/http/{dto.Id}");
     }
 
     private void OnSearch(string text)
