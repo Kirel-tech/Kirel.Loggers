@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Net.Http;
+using System.Reflection;
 using Kirel.Logger.Messages.Client.Interfaces;
 using Kirel.Logger.Messages.DTOs;
 using Microsoft.Extensions.Logging;
@@ -48,6 +49,7 @@ public class KirelMessageLogger : IKirelMessageLogger
             ExceptionMessage = exception?.Message,
             InnerExceptionMessage = exception?.InnerException?.Message,
             StackTrace = exception?.StackTrace,
+            Service = Assembly.GetEntryAssembly()?.GetName().Name,
             Source = _name,
             Level = logLevel.ToString()
         };
