@@ -9,7 +9,10 @@ public class KirelHttpLoggerOptions
     /// Authorization header for current application
     /// </summary>
     public string AuthorizationHeader { get; set; }
-
+    /// <summary>
+    /// Flag that represents if http logging enabled
+    /// </summary>
+    public bool Enabled { get; set; }
     /// <summary>
     /// The name of the application to to associate logs in db with it
     /// </summary>
