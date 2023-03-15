@@ -35,6 +35,12 @@ public class KirelHttpLoggerMiddleware
     /// <param name="context">Http context that encapsulates all HTTP-specific information about an individual HTTP request</param>
     public async Task Invoke(HttpContext context)
     {
+        if (!_loggerOpt.Value.Enabled)
+        {
+            await _next(context);
+            return;
+        }
+        
         var httpLog = new KirelLogHttpDto();
         ParseRequest(httpLog, context);
         await ParseResponse(httpLog, context);
