@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Kirel.Logger.HTTP.DTOs;
 using Kirel.DTO;
-using Kirel.Logger.HTTP.API.Context;
 using Kirel.Logger.HTTP.API.Models;
-using Kirel.Repositories.Infrastructure.Generics;
+using Kirel.Repositories.Interfaces;
 using SortDirection = Kirel.Repositories.Sorts.SortDirection;
 
 namespace Kirel.Logger.HTTP.API.Services;
@@ -13,7 +12,7 @@ namespace Kirel.Logger.HTTP.API.Services;
 /// </summary>
 public class KirelLogHttpService
 {
-    private readonly KirelGenericEntityFrameworkRepository<Guid, KirelLogHttp, KirelLogHttpDbContext> _repository;
+    private readonly IKirelGenericEntityRepository<Guid, KirelLogHttp> _repository;
     private readonly IMapper _mapper;
 
     /// <summary>
@@ -21,7 +20,7 @@ public class KirelLogHttpService
     /// </summary>
     /// <param name="repository">Kirel generic repository instance</param>
     /// <param name="mapper">Class that represents <see cref="IMapper"/> interface</param>
-    public KirelLogHttpService(KirelGenericEntityFrameworkRepository<Guid, KirelLogHttp, KirelLogHttpDbContext> repository, IMapper mapper)
+    public KirelLogHttpService(IKirelGenericEntityRepository<Guid, KirelLogHttp> repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;

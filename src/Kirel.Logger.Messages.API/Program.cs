@@ -5,7 +5,8 @@ using Kirel.Logger.Shared.Models;
 using Kirel.Logger.Messages.API.Context;
 using Kirel.Logger.Messages.API.Models;
 using Kirel.Logger.Messages.API.Services;
-using Kirel.Repositories.Infrastructure.Generics;
+using Kirel.Repositories;
+using Kirel.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -19,7 +20,7 @@ var authOptions = configuration.GetSection("Auth").Get<KirelAuthOptions>();
 var dbConfig = configuration.GetSection("DbConfig").Get<DbConfig>();
 
 // Add services to the container.
-services.AddScoped<KirelGenericEntityFrameworkRepository<Guid, KirelLogMessage, KirelLogMessageContext>>();
+services.AddScoped<IKirelGenericEntityRepository<Guid, KirelLogMessage>, KirelGenericEntityFrameworkRepository<Guid, KirelLogMessage, KirelLogMessageContext>>();
 services.AddScoped<KirelLogMessageService>();
 services.AddApplicationContext(dbConfig);
 
