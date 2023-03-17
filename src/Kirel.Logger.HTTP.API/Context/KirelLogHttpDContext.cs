@@ -18,7 +18,7 @@ public class KirelLogHttpDbContext : DbContext
     /// </summary>
     public KirelLogHttpDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
     {
-        Database.EnsureCreated();
+        Database.Migrate();
     }
 
     /// <summary>
