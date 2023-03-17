@@ -20,7 +20,7 @@ public class KirelLogMessageContext : DbContext
     /// <param name="dbContextOptions">The options for this context</param>
     public KirelLogMessageContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
     {
-        Database.EnsureCreated();
+        Database.Migrate();
     } 
 
     /// <summary>
