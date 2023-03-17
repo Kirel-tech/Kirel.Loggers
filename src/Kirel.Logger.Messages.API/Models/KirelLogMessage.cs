@@ -1,16 +1,20 @@
-﻿using Kirel.Repositories.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using Kirel.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kirel.Logger.Messages.API.Models;
 
 /// <summary>
 /// Database log entity
 /// </summary>
+[Index(nameof(Service), nameof(Source), nameof(Level))]
 public class KirelLogMessage : IKeyEntity<Guid>, ICreatedAtTrackedEntity
 {
     /// <summary>
     /// Log unique identifier
     /// </summary>
-    public Guid Id { get; set; }      
+    [MaxLength(36)]
+    public Guid Id { get; set; }
     /// <summary>
     /// Log create date and time
     /// </summary>

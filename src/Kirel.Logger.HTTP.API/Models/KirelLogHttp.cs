@@ -1,15 +1,28 @@
-﻿using Kirel.Repositories.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using Kirel.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kirel.Logger.HTTP.API.Models;
 
 /// <summary>
 /// Http database log entity
 /// </summary>
+[Index(
+    nameof(Username), 
+    nameof(Source), 
+    nameof(Host), 
+    nameof(Path),
+    nameof(Method) ,
+    nameof(Protocol),
+    nameof(ClientIp),
+    nameof(RequestId),
+    nameof(ResponseCode))]
 public class KirelLogHttp : IKeyEntity<Guid>, ICreatedAtTrackedEntity
 {
     /// <summary>
     /// Log unique identifier
     /// </summary>
+    [MaxLength(36)]
     public Guid Id { get; set; }      
     /// <summary>
     /// Log create date and time
